@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Movement")]
     public float moveSpeed;
     public float groundDrag;
 
@@ -13,11 +12,11 @@ public class PlayerMovement : MonoBehaviour
     public float airMultiplier;
     bool readyToJump;
 
-    [Header("Keybinds")]
+    public float maxSlopeAngle;
+    private RaycastHit slopeHit;
+
     public KeyCode jumpKey = KeyCode.Space;
 
-
-    [Header("Ground Check")]
     public float playerHeight;
     public LayerMask groundMask;
     bool grounded;
@@ -31,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
 
     Rigidbody rb;
 
+    bool exitingSlope;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -41,9 +42,8 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, groundMask);
-        MyInput();
+        PlayerInput();
         SpeedControl();
-        Debug.Log(rb.velocity.x + " " + rb.velocity.y + " " + rb.velocity.z);
         if(grounded)
         {
             rb.drag = groundDrag;
@@ -57,9 +57,10 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+        Debug.Log(rb.velocity);
     }
 
-    private void MyInput()
+    private void PlayerInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
@@ -78,8 +79,17 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer()
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        
-        if(grounded)
+        if (OnSlope() && !exitingSlope)
+        {
+            rb.AddForce(10f * moveSpeed * GetSlopeMovementDirection(), ForceMode.Force);
+
+            if(rb.velocity.y > 0f)
+            {
+                rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+            }
+        }
+        rb.useGravity = !OnSlope();
+        if (grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
         if (!grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
@@ -87,17 +97,28 @@ public class PlayerMovement : MonoBehaviour
 
     private void SpeedControl()
     {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        if(flatVel.magnitude > moveSpeed)
+        if(OnSlope() && !exitingSlope)
         {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            if(rb.velocity.magnitude > moveSpeed)
+            {
+                rb.velocity = rb.velocity.normalized * moveSpeed;
+            }
+        }
+        else
+        {
+            Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+            if(flatVel.magnitude > moveSpeed)
+            {
+                Vector3 limitedVel = flatVel.normalized * moveSpeed;
+                rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+            }
         }
     }
 
     private void Jump()
     {
+        exitingSlope = true;
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
@@ -106,11 +127,27 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+        exitingSlope = false;
     }
 
     private void StopMovement()
     {
         rb.velocity = Vector3.zero;
+    }
+
+    private bool OnSlope()
+    {
+        if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
+        {
+            float angle = Vector3.Angle(slopeHit.normal, Vector3.up);
+            return angle < maxSlopeAngle && angle != 0f;
+        }
+        return false;
+    }
+
+    private Vector3 GetSlopeMovementDirection()
+    {
+        return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
     }
 
 

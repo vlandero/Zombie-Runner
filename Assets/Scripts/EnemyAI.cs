@@ -5,17 +5,71 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] Transform followTarget;
+    public Transform followTarget;
+    public float chaseRange = 7f;
+    public float turnSpeed = 5f;
+
     NavMeshAgent navMeshAgent;
-    // Start is called before the first frame update
+    private float distanceToTarget = Mathf.Infinity;
+    private bool isProvoked = false;
+    private Animator animator;
+
+
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        distanceToTarget = Vector3.Distance(transform.position, followTarget.position);
+        if (isProvoked)
+        {
+            EngageTarget();
+        }
+        else if (distanceToTarget <= chaseRange)
+        {
+            isProvoked = true;
+        }
+
+    }
+
+    public void EngageTarget()
+    {
+        FaceTarget();
+        if (distanceToTarget >= navMeshAgent.stoppingDistance)
+        {
+            ChaseTarget();
+        }
+        else
+        {
+            AttackTarget();
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, chaseRange);
+    }
+
+    private void FaceTarget()
+    {
+        Vector3 direction = (followTarget.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed);
+    }
+
+    private void ChaseTarget()
+    {
+        animator.SetBool("attack", false);
+        animator.SetTrigger("move");
         navMeshAgent.SetDestination(followTarget.position);
+    }
+
+    private void AttackTarget()
+    {
+        animator.SetBool("attack", true);
     }
 }

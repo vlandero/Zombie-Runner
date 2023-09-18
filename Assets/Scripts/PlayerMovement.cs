@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.1f, groundMask);
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f * transform.localScale.y + 0.1f, groundMask);
         PlayerInput();
         SpeedControl();
         if(grounded)
@@ -57,7 +57,6 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
-        Debug.Log(rb.velocity);
     }
 
     private void PlayerInput()
@@ -137,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool OnSlope()
     {
-        if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
+        if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f * transform.localScale.y + 0.2f))
         {
             float angle = Vector3.Angle(slopeHit.normal, Vector3.up);
             return angle < maxSlopeAngle && angle != 0f;

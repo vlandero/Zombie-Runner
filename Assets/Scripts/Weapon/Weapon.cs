@@ -9,12 +9,18 @@ public class Weapon : MonoBehaviour
     public float damage = 25f;
     public ParticleSystem fireFlash;
     public GameObject hitImpact;
+    public WeaponAmmo ammo;
 
     void Update()
     {
         if(Input.GetMouseButtonDown(0))
         {
-            Shoot();
+            if(ammo.GetAmmo() > 0)
+            {
+                Shoot();
+                ammo.RemoveAmmo(1);
+            }
+            // else play sound
         }
     }
 

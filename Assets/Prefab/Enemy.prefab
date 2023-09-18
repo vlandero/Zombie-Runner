@@ -119,9 +119,9 @@ GameObject:
   - component: {fileID: 378823792156320979}
   - component: {fileID: 7586698851225356589}
   - component: {fileID: 5270089101520489162}
-  - component: {fileID: 8405804656517726184}
   - component: {fileID: 4963528634081843890}
   - component: {fileID: 8955375327329010384}
+  - component: {fileID: 8405804656517726184}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -254,29 +254,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followTarget: {fileID: 0}
   chaseRange: 8.12
-  attackDamage: 50
   turnSpeed: 5
---- !u!95 &8405804656517726184
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2739510959210026358}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 342825179790df845b6d80c2080ec194, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &4963528634081843890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,4 +280,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551a9609c0998b5428d8bfbff64901ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 10
+  attackDamage: 50
+--- !u!95 &8405804656517726184
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2739510959210026358}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 342825179790df845b6d80c2080ec194, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

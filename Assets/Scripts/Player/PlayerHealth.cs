@@ -4,15 +4,33 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public float hp = 100f;
+    [SerializeField] private float hp = 100f;
+    [SerializeField] private float maxHp = 100f;
 
+    public void UpdateUI()
+    {
+        FindObjectOfType<PlayerHealthBar>().HealthUpdate(hp, maxHp);
+        FindObjectOfType<PlayerHitpoints>().HealthUpdate(hp, maxHp);
+    }
     public void TakeDamage(float damage)
     {
-        hp -= damage;
-        if (hp <= 0)
+        hp = Mathf.Clamp(hp - damage, 0, maxHp);
+        UpdateUI();
+        if (hp == 0)
         {
             Die();
         }
+    }
+
+    public void Heal(float amount)
+    {
+        hp = Mathf.Clamp(hp + amount, 0, maxHp);
+        UpdateUI();
+    }
+
+    public float GetHealth()
+    {
+        return hp;
     }
 
     private void Die()

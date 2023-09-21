@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    public Camera firstPersonCamera;
-    public float range = 100f;
-    public float damage = 25f;
-    public ParticleSystem fireFlash;
-    public GameObject hitImpact;
-    public WeaponAmmo ammo;
+    [SerializeField] private Camera firstPersonCamera;
+    [SerializeField] private float range = 100f;
+    [SerializeField] private float damage = 25f;
+    [SerializeField] private ParticleSystem fireFlash;
+    [SerializeField] private GameObject hitImpact;
+
+    private WeaponAmmo ammo;
+
+    private void Start()
+    {
+        ammo = GetComponent<WeaponAmmo>();
+    }
 
     void Update()
     {
@@ -22,6 +28,11 @@ public class Weapon : MonoBehaviour
             }
             // else play sound
         }
+    }
+
+    public WeaponAmmo GetAmmoComponent()
+    {
+        return ammo;
     }
 
     private void Shoot()

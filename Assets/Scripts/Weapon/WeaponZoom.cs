@@ -17,7 +17,7 @@ public class WeaponZoom : MonoBehaviour
 
     private void Start()
     {
-        playerCam  = FindAnyObjectByType<PlayerCam>();
+        playerCam = FindAnyObjectByType<PlayerCam>();
     }
 
     void Update()

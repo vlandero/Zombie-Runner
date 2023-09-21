@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponAmmo : MonoBehaviour
 {
-    public int ammo = 10;
+    [SerializeField] private int ammo = 10;
     
     public void AddAmmo(int amount)
     {

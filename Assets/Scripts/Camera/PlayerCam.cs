@@ -7,7 +7,7 @@ public class PlayerCam : MonoBehaviour
     public float sensX;
     public float sensY;
 
-    public Transform orientation;
+    [SerializeField] private Transform orientation;
 
     float xRotation;
     float yRotation;

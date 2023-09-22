@@ -21,4 +21,9 @@ public class EnemyAttack : MonoBehaviour
             Debug.Log("Attack");
         }
     }
+
+    public void SetAttackDamage(float attackDamage)
+    {
+        this.attackDamage = attackDamage;
+    }
 }

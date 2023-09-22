@@ -9,8 +9,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void UpdateUI()
     {
-        FindObjectOfType<PlayerHealthBar>().HealthUpdate(hp, maxHp);
-        FindObjectOfType<PlayerHitpoints>().HealthUpdate(hp, maxHp);
+        UiManager.instance.playerHealthBar.HealthUpdate(hp, maxHp);
+        UiManager.instance.playerHitpoints.HealthUpdate(hp, maxHp);
     }
     public void TakeDamage(float damage)
     {
@@ -31,6 +31,11 @@ public class PlayerHealth : MonoBehaviour
     public float GetHealth()
     {
         return hp;
+    }
+
+    public float GetMaxHealth()
+    {
+        return maxHp;
     }
 
     private void Die()

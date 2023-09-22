@@ -9,11 +9,13 @@ public class WeaponAmmo : MonoBehaviour
     public void AddAmmo(int amount)
     {
         ammo += amount;
+        UiManager.instance.ammoUI.AmmoUpdate(ammo);
     }
 
     public void RemoveAmmo(int amount)
     {
-          ammo -= amount;
+        ammo -= amount;
+        UiManager.instance.ammoUI.AmmoUpdate(ammo);
     }
 
     public int GetAmmo()

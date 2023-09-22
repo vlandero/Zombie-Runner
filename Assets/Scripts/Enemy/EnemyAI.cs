@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField] private Transform followTarget;
+    private Transform followTarget;
     [SerializeField] private float chaseRange = 7f;
     [SerializeField] private float turnSpeed = 5f;
 
@@ -19,6 +19,7 @@ public class EnemyAI : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        followTarget = PlayerManager.instance.GetPlayerObject().transform;
     }
 
     void Update()
@@ -72,5 +73,10 @@ public class EnemyAI : MonoBehaviour
     private void AttackTarget()
     {
         animator.SetBool("attack", true);
+    }
+
+    public void SetChaseRange(float range)
+    {
+        chaseRange = range;
     }
 }

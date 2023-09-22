@@ -4,24 +4,25 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float moveSpeed;
-    public float groundDrag;
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float groundDrag;
 
-    public float jumpForce;
-    public float jumpCooldown;
-    public float airMultiplier;
+    [SerializeField] private float jumpForce;
+    [SerializeField] private float forceOnSlope;
+    [SerializeField] private float jumpCooldown;
+    [SerializeField] private float airMultiplier;
     bool readyToJump;
 
-    public float maxSlopeAngle;
+    [SerializeField] private float maxSlopeAngle;
     private RaycastHit slopeHit;
 
-    public KeyCode jumpKey = KeyCode.Space;
+    private KeyCode jumpKey = KeyCode.Space;
 
-    public float playerHeight;
-    public LayerMask groundMask;
+    [SerializeField] private float playerHeight;
+    [SerializeField] private LayerMask groundMask;
+    [SerializeField] private Transform orientation;
+
     bool grounded;
-
-    public Transform orientation;
 
     float horizontalInput;
     float verticalInput;
@@ -84,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
 
             if(rb.velocity.y > 0f)
             {
-                rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+                rb.AddForce(Vector3.down * forceOnSlope, ForceMode.Force);
             }
         }
         rb.useGravity = !OnSlope();

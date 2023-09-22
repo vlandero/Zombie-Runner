@@ -34,6 +34,12 @@ public class EnemyHealth : MonoBehaviour
         return maxHp;
     }
 
+    public void SetMaxHp(float maxHp)
+    {
+        this.hp = maxHp;
+        this.maxHp = maxHp;
+    }
+
 
     private void Die()
     {

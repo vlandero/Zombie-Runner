@@ -6,8 +6,13 @@ using UnityEngine;
 public class SpawnerManager : MonoBehaviour
 {
     public static SpawnerManager instance;
+    public delegate void SpawnFunction(Vector3 position);
 
-    [SerializeField] private GameObject EnemyPrefab;
+    [Header("Prefabs")]
+    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject ammoPrefab;
+    [SerializeField] private GameObject healthPrefab;
+
     [SerializeField] private float checkCollisionRadius = 4f;
     [SerializeField] private int maxSpawnAttempts = 5;
 
@@ -37,24 +42,33 @@ public class SpawnerManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.V))
         {
-            RandomSpawn(EnemyPrefab);
+            RandomSpawn(SpawnEnemy);
         }
     }
 
-    public void SpawnEnemy(GameObject enemyPrefab, Vector3 spawnPoint)
+    public void SpawnEnemy(Vector3 spawnPoint)
     {
         GameObject enemyObject = Instantiate(enemyPrefab, spawnPoint, Quaternion.identity);
         EnemyAI enemyAI = enemyObject.GetComponent<EnemyAI>();
         EnemyHealth enemyHealth = enemyObject.GetComponent<EnemyHealth>();
         EnemyAttack enemyAttack = enemyObject.GetComponent<EnemyAttack>();
 
-        // set things here depending on the enemy type
+        // set things here depending on the enemy type (random maybe?)
         enemyAI.SetChaseRange(7f);
         enemyHealth.SetMaxHp(100f);
         enemyAttack.SetAttackDamage(10f);
     }
 
-    public void RandomSpawn(GameObject gameObject)
+    public void SpawnAmmo(Vector3 spawnPoint)
+    {
+        GameObject ammoObject = Instantiate(ammoPrefab, spawnPoint, Quaternion.identity);
+        AmmoHandler ammoHandler = ammoObject.GetComponent<AmmoHandler>();
+
+        // set available ammo (random maybe?)
+        ammoHandler.SetAvailableAmmo(10);
+    }
+    
+    public void RandomSpawn(SpawnFunction callback)
     {
         bool spawned = false;
         int attempts = 0;
@@ -63,11 +77,28 @@ public class SpawnerManager : MonoBehaviour
             Vector3 randomPosition = new(UnityEngine.Random.Range(spawnRangeXMin, spawnRangeXMax), UnityEngine.Random.Range(spawnRangeYMin, spawnRangeYMax), UnityEngine.Random.Range(spawnRangeZMin, spawnRangeZMax));
             if (!Physics.CheckSphere(randomPosition, checkCollisionRadius))
             {
-                SpawnEnemy(gameObject, randomPosition);
+                callback(randomPosition);
                 spawned = true;
             }
             attempts++;
         }
-        
+    }
+
+    public void TriggerEvent(int eventCode, int numberOfSpawns)
+    {
+        switch (eventCode)
+        {
+            case 1:
+                RandomSpawn(SpawnEnemy);
+                break;
+            case 2:
+                RandomSpawn(SpawnEnemy);
+                break;
+            case 3:
+                RandomSpawn(SpawnEnemy);
+                break;
+            default:
+                break;
+        }
     }
 }

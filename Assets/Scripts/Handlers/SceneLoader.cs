@@ -9,6 +9,7 @@ public class SceneLoader : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.LoadScene(0);
+        UiManager.instance.timeElapsedHandler.ResetTimer();
     }
 
     public void QuitGame()

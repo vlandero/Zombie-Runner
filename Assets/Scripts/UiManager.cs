@@ -9,6 +9,7 @@ public class UiManager : MonoBehaviour
     public AmmoUI ammoUI;
     public PlayerHealthBar playerHealthBar;
     public PlayerHitpoints playerHitpoints;
+    public TimeElapsedHandler timeElapsedHandler;
 
     private void Awake()
     {
@@ -28,6 +29,7 @@ public class UiManager : MonoBehaviour
         ammoUI = FindAnyObjectByType<AmmoUI>();
         playerHealthBar = FindAnyObjectByType<PlayerHealthBar>();
         playerHitpoints = FindAnyObjectByType<PlayerHitpoints>();
+        timeElapsedHandler = FindAnyObjectByType<TimeElapsedHandler>();
         InitializeUi();
     }
 

@@ -6,15 +6,21 @@ using Random = UnityEngine.Random;
 
 public class DiceUI : MonoBehaviour
 {
-    private List<string> events = new List<string>(new string[] { "Event1", "Event2", "Event3", "Event4", "Event5", "Event6" });
+    private readonly List<string> events = new List<string>(new string[] { "Zombie Spawn", "Ammo Spawn", "Health Spawn" });
+    private readonly Dictionary<string, int> eventToNumberMap = new();
+
     private TextMeshProUGUI text;
     [SerializeField] private Animator textAnimator;
     [SerializeField] private Animator diceAnimator;
-    [SerializeField] private float rollDuration = 5f;
+    [SerializeField] private float rollDuration = 10f;
     [SerializeField] private float rollDelay = 20f;
 
     private void Start()
     {
+        for (int i = 0; i < events.Count; i++)
+        {
+            eventToNumberMap[events[i]] = i + 1;
+        }
         text = GetComponentInChildren<TextMeshProUGUI>();
         StartCoroutine(RollDicePeriodically());
     }
@@ -39,8 +45,10 @@ public class DiceUI : MonoBehaviour
             }
 
             text.text = GetRandomEvent();
+            int rand = Random.Range(1, 7);
             textAnimator.SetTrigger("done");
             diceAnimator.SetBool("spinning", false);
+            SpawnerManager.instance.TriggerEvent(eventToNumberMap[text.text], rand);
         }
     }
 

@@ -46,7 +46,7 @@ public class SpawnerManager : MonoBehaviour
         }
     }
 
-    public void SpawnEnemy(Vector3 spawnPoint)
+    private void SpawnEnemy(Vector3 spawnPoint)
     {
         GameObject enemyObject = Instantiate(enemyPrefab, spawnPoint, Quaternion.identity);
         EnemyAI enemyAI = enemyObject.GetComponent<EnemyAI>();
@@ -59,13 +59,22 @@ public class SpawnerManager : MonoBehaviour
         enemyAttack.SetAttackDamage(10f);
     }
 
-    public void SpawnAmmo(Vector3 spawnPoint)
+    private void SpawnAmmo(Vector3 spawnPoint)
     {
         GameObject ammoObject = Instantiate(ammoPrefab, spawnPoint, Quaternion.identity);
-        AmmoHandler ammoHandler = ammoObject.GetComponent<AmmoHandler>();
+        AmmoHandler ammoHandler = ammoObject.GetComponentInChildren<AmmoHandler>();
 
         // set available ammo (random maybe?)
         ammoHandler.SetAvailableAmmo(10);
+    }
+
+    private void SpawnHealth(Vector3 spawnPoint)
+    {
+        GameObject healthObject = Instantiate(healthPrefab, spawnPoint, Quaternion.identity);
+        HealthPotion healthHandler = healthObject.GetComponent<HealthPotion>();
+
+        // set available health (random maybe?)
+        healthHandler.SetHealAmount(10);
     }
     
     public void RandomSpawn(SpawnFunction callback)
@@ -84,18 +93,28 @@ public class SpawnerManager : MonoBehaviour
         }
     }
 
-    public void TriggerEvent(int eventCode, int numberOfSpawns)
+    public void TriggerEvent(int eventCode, int rand)
     {
         switch (eventCode)
         {
             case 1:
-                RandomSpawn(SpawnEnemy);
+                for(int i = 0; i < rand; ++i)
+                    RandomSpawn(SpawnEnemy);
                 break;
             case 2:
-                RandomSpawn(SpawnEnemy);
+                for (int i = 0; i < rand; ++i)
+                    RandomSpawn(SpawnAmmo);
                 break;
             case 3:
-                RandomSpawn(SpawnEnemy);
+                for (int i = 0; i < rand; ++i)
+                    RandomSpawn(SpawnHealth);
+                break;
+            case 4:
+                EnemyAI[] zombies = FindObjectsOfType<EnemyAI>();
+                for(int i = 0; i < rand; ++i)
+                {
+                    zombies[i].EngageTarget();
+                }
                 break;
             default:
                 break;

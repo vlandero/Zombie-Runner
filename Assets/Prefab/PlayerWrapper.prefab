@@ -10097,13 +10097,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa4f5b376d0ffbc4aa0ba1fbac5b7a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
+  moveSpeed: 2
   groundDrag: 5
   jumpForce: 4
+  forceOnSlope: 10
   jumpCooldown: 0.25
-  airMultiplier: 0.05
+  airMultiplier: 0.25
   maxSlopeAngle: 60
-  jumpKey: 32
   playerHeight: 2
   groundMask:
     serializedVersion: 2
@@ -10239,7 +10239,7 @@ GameObject:
   - component: {fileID: 7737702760246369532}
   m_Layer: 0
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: PlayerCapsule
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

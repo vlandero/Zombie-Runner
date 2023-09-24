@@ -18,12 +18,12 @@ public class EnemyAttack : MonoBehaviour
         if (playerHealth != null)
         {
             playerHealth.TakeDamage(attackDamage);
-            Debug.Log("Attack");
         }
     }
 
     public void SetAttackDamage(float attackDamage)
     {
+        GetComponentInChildren<EnemyDamageUI>().SetDamage(attackDamage);
         this.attackDamage = attackDamage;
     }
 }

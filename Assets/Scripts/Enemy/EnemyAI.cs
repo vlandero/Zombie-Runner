@@ -79,4 +79,9 @@ public class EnemyAI : MonoBehaviour
     {
         chaseRange = range;
     }
+
+    public void SetAttackRange(float range)
+    {
+        navMeshAgent.stoppingDistance = range;
+    }
 }

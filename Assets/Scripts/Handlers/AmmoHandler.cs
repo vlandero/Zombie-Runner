@@ -22,9 +22,9 @@ public class AmmoHandler : MonoBehaviour
     public void Open()
     {
         opened = true;
-        transform.parent.GetComponent<Animator>().SetBool("opened", true);
-        Debug.Log(transform.parent.GetComponentInChildren<AmmoBoxBullets>());
-        Destroy(transform.parent.GetComponentInChildren<AmmoBoxBullets>().gameObject, .8f);
+        transform.GetComponent<Animator>().SetBool("opened", true);
+        Debug.Log(transform.GetComponentInChildren<AmmoBoxBullets>());
+        Destroy(transform.GetComponentInChildren<AmmoBoxBullets>().gameObject, .8f);
     }
 
     public void Update()
@@ -43,6 +43,12 @@ public class AmmoHandler : MonoBehaviour
         {
             Transform playerWrapper = collision.gameObject.transform.root;
             weapon = playerWrapper.GetComponentInChildren<Weapon>();
+        }
+        // check if layer mask is groundMask
+        Debug.Log(collision.gameObject.layer);
+        if(collision.gameObject.layer == 10)
+        {
+            GetComponentInParent<Rigidbody>().isKinematic = true;
         }
     }
 

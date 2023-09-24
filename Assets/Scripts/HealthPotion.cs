@@ -10,23 +10,22 @@ public class HealthPotion : MonoBehaviour
     {
         healAmount = amount;
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("PlayerCapsule"))
         {
-            PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            PlayerHealth playerHealth = collision.gameObject.GetComponentInParent<PlayerHealth>();
             if(playerHealth.GetHealth() == playerHealth.GetMaxHealth())
             {
-                Physics.IgnoreCollision(collision.collider, GetComponent<Collider>());
                 return;
             }
             playerHealth.Heal(healAmount);
             Destroy(gameObject);
         }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        Physics.IgnoreCollision(collision.collider, GetComponent<Collider>(), false);
+        if(collision.gameObject.layer == 10)
+        {
+            Rigidbody rb = GetComponent<Rigidbody>();
+            rb.isKinematic = true;
+        }
     }
 }

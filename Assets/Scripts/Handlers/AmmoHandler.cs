@@ -23,7 +23,6 @@ public class AmmoHandler : MonoBehaviour
     {
         opened = true;
         transform.GetComponent<Animator>().SetBool("opened", true);
-        Debug.Log(transform.GetComponentInChildren<AmmoBoxBullets>());
         Destroy(transform.GetComponentInChildren<AmmoBoxBullets>().gameObject, .8f);
     }
 
@@ -44,7 +43,6 @@ public class AmmoHandler : MonoBehaviour
             Transform playerWrapper = collision.gameObject.transform.root;
             weapon = playerWrapper.GetComponentInChildren<Weapon>();
         }
-        // check if layer mask is groundMask
         Debug.Log(collision.gameObject.layer);
         if(collision.gameObject.layer == 10)
         {

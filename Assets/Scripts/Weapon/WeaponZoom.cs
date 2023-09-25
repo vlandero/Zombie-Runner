@@ -7,9 +7,9 @@ public class WeaponZoom : MonoBehaviour
     public Camera playerCamera;
 
     private float zoomedOutFOV = 87f;
-    private float zoomedOutSensitivity = 700f;
+    private float zoomedOutSensitivity = 7f;
     private float zoomedInFOV = 35f;
-    private float zoomedInSensitivity = 300f;
+    private float zoomedInSensitivity = 3f;
 
     private PlayerCam playerCam;
 

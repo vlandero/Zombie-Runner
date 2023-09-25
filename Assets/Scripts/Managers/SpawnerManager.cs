@@ -93,6 +93,11 @@ public class SpawnerManager : MonoBehaviour
         }
     }
 
+    public Vector3 GetRandomPoint()
+    {
+        return new(UnityEngine.Random.Range(spawnRangeXMin, spawnRangeXMax), 0, UnityEngine.Random.Range(spawnRangeZMin, spawnRangeZMax));
+    }
+
     public void TriggerEvent(int eventCode, int rand)
     {
         switch (eventCode)
@@ -113,7 +118,7 @@ public class SpawnerManager : MonoBehaviour
                 EnemyAI[] zombies = FindObjectsOfType<EnemyAI>();
                 for(int i = 0; i < rand; ++i)
                 {
-                    zombies[i].EngageTarget();
+                    zombies[i].Provoke();
                 }
                 break;
             default:

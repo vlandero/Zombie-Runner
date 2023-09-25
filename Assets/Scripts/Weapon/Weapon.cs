@@ -46,10 +46,9 @@ public class Weapon : MonoBehaviour
         if (Physics.Raycast(firstPersonCamera.transform.position, firstPersonCamera.transform.forward, out RaycastHit hit))
         {
             CreateHitImpact(hit);
-            EnemyHealth target = hit.transform.GetComponent<EnemyHealth>();
-            if (target == null) return;
+            if (!hit.transform.TryGetComponent<EnemyHealth>(out var target)) return;
             EnemyAI enemy = hit.transform.GetComponent<EnemyAI>();
-            enemy.EngageTarget();
+            enemy.Provoke();
             target.TakeDamage(damage);
 
         }

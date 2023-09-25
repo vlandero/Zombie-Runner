@@ -45,6 +45,7 @@ public class EnemyHealth : MonoBehaviour
     {
         GetComponent<NavMeshAgent>().enabled = false;
         GetComponent<Animator>().SetTrigger("die");
+        GetComponent<EnemyAI>().Die();
         Destroy(gameObject, 1.1f);
     }
 }

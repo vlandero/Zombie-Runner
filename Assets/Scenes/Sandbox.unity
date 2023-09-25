@@ -290,7 +290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &49388908
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3430,6 +3430,14 @@ PrefabInstance:
     - target: {fileID: 5812492740797820390, guid: 8754c355c7e1a10468ee9119191299b4, type: 3}
       propertyPath: m_Name
       value: PlayerWrapper
+      objectReference: {fileID: 0}
+    - target: {fileID: 8564770913651238247, guid: 8754c355c7e1a10468ee9119191299b4, type: 3}
+      propertyPath: sensX
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8564770913651238247, guid: 8754c355c7e1a10468ee9119191299b4, type: 3}
+      propertyPath: sensY
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

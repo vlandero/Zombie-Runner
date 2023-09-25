@@ -6,11 +6,11 @@ public class EnemyAttack : MonoBehaviour
 {
     [SerializeField] private float attackDamage = 10f;
 
-    private PlayerHealth target;
+    private GameObject target;
 
     public void Start()
     {
-        target = FindObjectOfType<PlayerHealth>();
+        target = PlayerManager.instance.GetPlayerObject();
     }
     public void AttackHitEvent()
     {

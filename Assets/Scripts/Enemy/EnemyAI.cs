@@ -6,11 +6,12 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour
 {
     private Transform followTarget;
-    [SerializeField] private float chaseRange = 7f;
-    [SerializeField] private float turnSpeed = 5f;
-    [SerializeField] private float walkSpeed = 2f;
-    [SerializeField] private float provokedSpeed = 5f;
-    [SerializeField] private float loseAggresionTime = 3f;
+    private float chaseRange;
+    private float walkSpeed;
+    private float provokedSpeed;
+    private float loseAggresionTime;
+    private float attackRange;
+    private float turnSpeed = 5f;
 
     NavMeshAgent navMeshAgent;
     private float distanceToTarget = Mathf.Infinity;
@@ -21,13 +22,18 @@ public class EnemyAI : MonoBehaviour
     private bool isRandomWalkingCoroutineActive = false;
     private Animator animator;
 
-
     void Start()
     {
+        loseAggresionTime = BalanceManager.instance.immunityTime;
+        chaseRange = BalanceManager.instance.chaseRangeFlat;
+        walkSpeed = BalanceManager.instance.walkSpeedFlat;
+        provokedSpeed = BalanceManager.instance.chaseRangeFlat;
+        attackRange = BalanceManager.instance.attackRangeFlat;
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.speed = walkSpeed;
+        navMeshAgent.stoppingDistance = attackRange;
         animator = GetComponent<Animator>();
-        followTarget = PlayerManager.instance.GetPlayerObject().transform;
+        followTarget = PlayerManager.instance.playerObject.transform;
         StartCoroutine(StartRandomWalk());
     }
 
@@ -143,14 +149,20 @@ public class EnemyAI : MonoBehaviour
 
     public void LoseAggresion()
     {
+        bool isWalking = animator.GetBool("walking");
         lostAggresion = true;
-        isProvoked = false;
-        navMeshAgent.speed = walkSpeed;
-        animator.ResetTrigger("move");
-        animator.SetTrigger("idle");
-        ResetNavMeshDestination();
-        StartRandomWalkingCoroutine();
         StartCoroutine(RegainAggresion());
+        if (!isWalking)
+        {
+            isProvoked = false;
+            navMeshAgent.speed = walkSpeed;
+            animator.ResetTrigger("move");
+            animator.SetTrigger("idle");
+            animator.SetBool("walking", false);
+            ResetNavMeshDestination();
+            StartRandomWalkingCoroutine();
+        }
+        
     }
 
     private IEnumerator RegainAggresion()

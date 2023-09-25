@@ -23,7 +23,9 @@ public class AmmoHandler : MonoBehaviour
     {
         opened = true;
         transform.GetComponent<Animator>().SetBool("opened", true);
+        GetComponentInChildren<AmmoCrateText>().gameObject.SetActive(false);
         Destroy(transform.GetComponentInChildren<AmmoBoxBullets>().gameObject, .8f);
+        Destroy(gameObject, 10f);
     }
 
     public void Update()
@@ -43,7 +45,6 @@ public class AmmoHandler : MonoBehaviour
             Transform playerWrapper = collision.gameObject.transform.root;
             weapon = playerWrapper.GetComponentInChildren<Weapon>();
         }
-        Debug.Log(collision.gameObject.layer);
         if(collision.gameObject.layer == 10)
         {
             GetComponentInParent<Rigidbody>().isKinematic = true;

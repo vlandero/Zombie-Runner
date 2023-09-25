@@ -6,28 +6,30 @@ using Random = UnityEngine.Random;
 
 public class DiceUI : MonoBehaviour
 {
-    private readonly List<string> events = new List<string>(new string[] { "Zombie Spawn", "Ammo Spawn", "Health Spawn", "Engage Zombies" });
+    private readonly List<string> events = new(new string[] { "Zombie Spawn", "Ammo Spawn", "Health Spawn", "Engage Zombies" });
     private readonly Dictionary<string, int> eventToNumberMap = new();
     private Dictionary<string, (int, int)> eventBoundariesMap = new();
 
     private TextMeshProUGUI text;
     [SerializeField] private Animator textAnimator;
     [SerializeField] private Animator diceAnimator;
-    [SerializeField] private float rollDuration = 10f;
-    [SerializeField] private float rollDelay = 20f;
+    private float rollDuration = 10f;
+    private float rollDelay = 20f;
 
     private int zombiesInScene = 0;
 
     private void SetBoundaries()
     {
-        eventBoundariesMap["Zombie Spawn"] = (5, 10);
-        eventBoundariesMap["Ammo Spawn"] = (1, 4);
-        eventBoundariesMap["Health Spawn"] = (1, 3);
+        eventBoundariesMap["Zombie Spawn"] = (BalanceManager.instance.zombieSpawnLow, BalanceManager.instance.zombieSpawnHigh);
+        eventBoundariesMap["Ammo Spawn"] = (BalanceManager.instance.ammoSpawnLow, BalanceManager.instance.ammoSpawnHigh);
+        eventBoundariesMap["Health Spawn"] = (BalanceManager.instance.healthSpawnLow, BalanceManager.instance.healthSpawnHigh);
         eventBoundariesMap["Engage Zombies"] = (0, 0);
     }
 
     private void Start()
     {
+        rollDuration = BalanceManager.instance.rollDuration;
+        rollDelay = BalanceManager.instance.rollCooldown;
         SetBoundaries();
         for (int i = 0; i < events.Count; i++)
         {

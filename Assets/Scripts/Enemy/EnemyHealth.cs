@@ -9,7 +9,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private float maxHp = 100f;
     [SerializeField] private EnemyHealthBar healthBar;
 
-    private void Awake()
+    private void Start()
     {
         healthBar = GetComponentInChildren<EnemyHealthBar>();
         healthBar.HealthUpdate(hp, maxHp);

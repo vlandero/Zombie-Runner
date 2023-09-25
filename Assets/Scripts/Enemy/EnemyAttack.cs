@@ -10,12 +10,11 @@ public class EnemyAttack : MonoBehaviour
 
     public void Start()
     {
-        target = PlayerManager.instance.GetPlayerObject();
+        target = PlayerManager.instance.playerObject;
     }
     public void AttackHitEvent()
     {
-        PlayerHealth playerHealth = target.GetComponent<PlayerHealth>();
-        if (playerHealth != null)
+        if (target.TryGetComponent<PlayerHealth>(out var playerHealth))
         {
             playerHealth.TakeDamage(attackDamage);
         }

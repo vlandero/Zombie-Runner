@@ -9,13 +9,9 @@ public class TimeElapsedHandler : MonoBehaviour
     private float startTime;
     private bool isRunning = false;
 
-    private void Awake()
-    {
-        timerText = GetComponent<TextMeshProUGUI>();
-    }
-
     private void Start()
     {
+        timerText = GetComponent<TextMeshProUGUI>();
         timerText.text = "0.00s";
         StartTimer();
     }

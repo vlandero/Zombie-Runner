@@ -10,6 +10,12 @@ public class HealthPotion : MonoBehaviour
     {
         healAmount = amount;
     }
+
+    public float GetHealAmount()
+    {
+        return healAmount;
+    }
+
     private void OnTriggerEnter(Collider collision)
     {
         if(collision.gameObject.CompareTag("PlayerCapsule"))

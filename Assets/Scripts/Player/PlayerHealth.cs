@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private float hp = 100f;
-    [SerializeField] private float maxHp = 100f;
+    private float hp;
+    private float maxHp;
+
+    private void Start()
+    {
+        hp = BalanceManager.instance.playerMaxHealth;
+        maxHp = BalanceManager.instance.playerMaxHealth;
+    }
 
     public void UpdateUI()
     {

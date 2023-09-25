@@ -290,7 +290,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &49388908
 RectTransform:
   m_ObjectHideFlags: 0
@@ -430,8 +430,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textAnimator: {fileID: 1855181099}
   diceAnimator: {fileID: 1013481554}
-  rollDuration: 5
-  rollDelay: 8
 --- !u!114 &79801502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1515,6 +1513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d0a050a62d78be45b4fe156581b977e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerObject: {fileID: 0}
 --- !u!4 &628832300
 Transform:
   m_ObjectHideFlags: 0
@@ -2605,16 +2604,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMaxHealth: 100
-  initialAmmo: 15
+  weaponDamageLow: 10
+  weaponDamageHigh: 30
   initialWeaponDamage: 15
+  initialAmmo: 15
   zombieMaxHealthLow: 50
   zombieMaxHealthHigh: 120
   zombieDamageLow: 5
   zombieDamageHigh: 40
+  immunityTime: 5
+  walkSpeedFlat: 2
+  provokedSpeedFlat: 5
+  chaseRangeFlat: 7
+  attackRangeFlat: 3
   healAmountLow: 10
   healAmountHigh: 100
   ammoAmountLow: 10
   ammoAmountHigh: 20
+  rollDuration: 10
+  rollCooldown: 20
+  zombieSpawnLow: 3
+  zombieSpawnHigh: 7
+  healthSpawnLow: 1
+  healthSpawnHigh: 5
+  ammoSpawnLow: 1
+  ammoSpawnHigh: 3
 --- !u!4 &1614383814
 Transform:
   m_ObjectHideFlags: 0

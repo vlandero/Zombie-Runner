@@ -14,7 +14,7 @@ public class SpawnerManager : MonoBehaviour
     [SerializeField] private GameObject healthPrefab;
 
     [SerializeField] private float checkCollisionRadius = 4f;
-    [SerializeField] private int maxSpawnAttempts = 5;
+    [SerializeField] private int maxSpawnAttempts = 10;
 
     [Header("Spawn Range")]
     [SerializeField] private float spawnRangeXMin;
@@ -49,14 +49,11 @@ public class SpawnerManager : MonoBehaviour
     private void SpawnEnemy(Vector3 spawnPoint)
     {
         GameObject enemyObject = Instantiate(enemyPrefab, spawnPoint, Quaternion.identity);
-        EnemyAI enemyAI = enemyObject.GetComponent<EnemyAI>();
         EnemyHealth enemyHealth = enemyObject.GetComponent<EnemyHealth>();
         EnemyAttack enemyAttack = enemyObject.GetComponent<EnemyAttack>();
 
-        // set things here depending on the enemy type (random maybe?)
-        enemyAI.SetChaseRange(7f);
-        enemyHealth.SetMaxHp(100f);
-        enemyAttack.SetAttackDamage(10f);
+        enemyHealth.SetMaxHp((int)UnityEngine.Random.Range(BalanceManager.instance.zombieMaxHealthLow, BalanceManager.instance.zombieMaxHealthHigh));
+        enemyAttack.SetAttackDamage((int)UnityEngine.Random.Range(BalanceManager.instance.zombieDamageLow, BalanceManager.instance.zombieDamageHigh));
     }
 
     private void SpawnAmmo(Vector3 spawnPoint)
@@ -64,8 +61,7 @@ public class SpawnerManager : MonoBehaviour
         GameObject ammoObject = Instantiate(ammoPrefab, spawnPoint, Quaternion.identity);
         AmmoHandler ammoHandler = ammoObject.GetComponentInChildren<AmmoHandler>();
 
-        // set available ammo (random maybe?)
-        ammoHandler.SetAvailableAmmo(10);
+        ammoHandler.SetAvailableAmmo(UnityEngine.Random.Range(BalanceManager.instance.ammoAmountLow, BalanceManager.instance.ammoAmountHigh));
     }
 
     private void SpawnHealth(Vector3 spawnPoint)
@@ -73,8 +69,7 @@ public class SpawnerManager : MonoBehaviour
         GameObject healthObject = Instantiate(healthPrefab, spawnPoint, Quaternion.identity);
         HealthPotion healthHandler = healthObject.GetComponent<HealthPotion>();
 
-        // set available health (random maybe?)
-        healthHandler.SetHealAmount(10);
+        healthHandler.SetHealAmount((int)UnityEngine.Random.Range(BalanceManager.instance.healAmountLow, BalanceManager.instance.healAmountHigh));
     }
     
     public void RandomSpawn(SpawnFunction callback)

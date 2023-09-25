@@ -6,7 +6,7 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
 
-    private GameObject playerObject;
+    public GameObject playerObject;
 
     private void Awake()
     {
@@ -25,10 +25,5 @@ public class PlayerManager : MonoBehaviour
         {
             Debug.LogError("Player GameObject not found with tag 'Player'.");
         }
-    }
-
-    public GameObject GetPlayerObject()
-    {
-        return playerObject;
     }
 }

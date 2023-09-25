@@ -6,15 +6,16 @@ public class Weapon : MonoBehaviour
 {
     [SerializeField] private Camera firstPersonCamera;
     [SerializeField] private float range = 100f;
-    [SerializeField] private float damage = 25f;
     [SerializeField] private ParticleSystem fireFlash;
     [SerializeField] private GameObject hitImpact;
 
+    private float damage = 25f;
     private WeaponAmmo ammo;
 
     private void Start()
     {
         ammo = GetComponent<WeaponAmmo>();
+        damage = BalanceManager.instance.initialWeaponDamage;
     }
 
     void Update()
@@ -33,6 +34,16 @@ public class Weapon : MonoBehaviour
     public WeaponAmmo GetAmmoComponent()
     {
         return ammo;
+    }
+
+    public float GetDamage()
+    {
+        return damage;
+    }
+
+    public void SetDamage(float newDamage)
+    {
+        damage = newDamage;
     }
 
     private void Shoot()

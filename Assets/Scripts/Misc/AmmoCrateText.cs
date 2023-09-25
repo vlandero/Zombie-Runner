@@ -3,18 +3,10 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class EnemyDamageUI : MonoBehaviour
+public class AmmoCrateText : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI text;
-
-    private Camera mainCamera;
-    private float damage;
-
-    public void SetDamage(float d)
-    {
-        damage = d;
-        text.text = damage.ToString();
-    }
+    Camera mainCamera;
 
     private void Start()
     {
@@ -24,5 +16,7 @@ public class EnemyDamageUI : MonoBehaviour
     private void Update()
     {
         transform.LookAt(transform.position + mainCamera.transform.rotation * Vector3.forward, mainCamera.transform.rotation * Vector3.up);
+        text.text = "Ammo: " + GetComponentInParent<AmmoHandler>().GetAvailableAmmo();
     }
+
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BalanceManager : MonoBehaviour
@@ -7,34 +8,63 @@ public class BalanceManager : MonoBehaviour
     public static BalanceManager instance;
 
     [Header("Initial Player Stats")]
-    public int playerMaxHealth = 100;
+    public float playerMaxHealth = 100;
+
+    [Header("Weapon Balance")]
+    public float weaponDamageLow = 10;
+    public float weaponDamageHigh = 30;
+    public float initialWeaponDamage = 15;
     public int initialAmmo = 15;
-    public int initialWeaponDamage = 15;
 
     [Header("Zombie Balance")]
-    public int zombieMaxHealthLow = 50;
-    public int zombieMaxHealthHigh = 120;
-    public int zombieDamageLow = 5;
-    public int zombieDamageHigh = 40;
+    public float zombieMaxHealthLow = 50;
+    public float zombieMaxHealthHigh = 120;
+    public float zombieDamageLow = 5;
+    public float zombieDamageHigh = 40;
+    public float immunityTime = 5f;
+    public float walkSpeedFlat = 2f;
+    public float provokedSpeedFlat = 5f;
+    public float chaseRangeFlat = 7f;
+    public float attackRangeFlat = 3f;
 
     [Header("Heal Balance")]
-    public int healAmountLow = 10;
-    public int healAmountHigh = 100;
+    public float healAmountLow = 10;
+    public float healAmountHigh = 100;
 
     [Header("Ammo Balance")]
     public int ammoAmountLow = 10;
     public int ammoAmountHigh = 20;
 
-    public int GetZombieSpeed()
+    [Header("Game Balance")]
+    public int rollDuration = 10;
+    public int rollCooldown = 20;
+
+    [Header("Event Boundaries")]
+    public int zombieSpawnLow = 3;
+    public int zombieSpawnHigh = 7;
+    public int healthSpawnLow = 1;
+    public int healthSpawnHigh = 5;
+    public int ammoSpawnLow = 1;
+    public int ammoSpawnHigh = 3;
+
+    public float GetZombieChaseSpeed()
     {
-        // depending on how op is the zombie
-        return 0;
+        return provokedSpeedFlat;
     }
 
-    public int GetZombieAttackRange()
+    public float GetZombieWalkSpeed()
     {
-          // depending on how op is the zombie
-        return 0;
+        return walkSpeedFlat;
+    }
+
+    public float GetZombieAttackRange()
+    {
+        return attackRangeFlat;
+    }
+
+    public float GetChaseRange()
+    {
+        return chaseRangeFlat;
     }
 
     private void Awake()

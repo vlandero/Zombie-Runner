@@ -14,11 +14,10 @@ public class EnemyHealthBar : MonoBehaviour
         healthBar.value = currentVal / maxVal;
     }
 
-    private void Awake()
+    private void Start()
     {
         mainCamera = GameObject.FindGameObjectWithTag("PlayerMainCamera").GetComponent<Camera>();
     }
-
 
     void Update()
     {

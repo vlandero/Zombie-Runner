@@ -7,7 +7,7 @@ public class AmmoUI : MonoBehaviour
 {
     private TextMeshProUGUI textMesh;
 
-    private void Awake()
+    private void Start()
     {
         textMesh = GetComponent<TextMeshProUGUI>();
     }

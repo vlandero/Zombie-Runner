@@ -6,18 +6,9 @@ public class EnemyAttack : MonoBehaviour
 {
     [SerializeField] private float attackDamage = 10f;
 
-    private GameObject target;
-
-    public void Start()
-    {
-        target = PlayerManager.instance.playerObject;
-    }
     public void AttackHitEvent()
     {
-        if (target.TryGetComponent<PlayerHealth>(out var playerHealth))
-        {
-            playerHealth.TakeDamage(attackDamage);
-        }
+        PlayerManager.instance.TakeDamage(attackDamage);
     }
 
     public void SetAttackDamage(float attackDamage)

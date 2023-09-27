@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class DiceUI : MonoBehaviour
 {
-    private readonly List<string> events = new(new string[] { "Zombie Spawn", "Ammo Spawn", "Health Spawn", "Engage Zombies" });
+    private readonly List<string> events = new(new string[] { "Zombie Spawn", "Ammo Spawn", "Health Spawn", "Engage Zombies", "Spawn Garlic", "Spawn Revive Crystal" });
     private readonly Dictionary<string, int> eventToNumberMap = new();
     private Dictionary<string, (int, int)> eventBoundariesMap = new();
 
@@ -24,6 +24,8 @@ public class DiceUI : MonoBehaviour
         eventBoundariesMap["Ammo Spawn"] = (BalanceManager.instance.ammoSpawnLow, BalanceManager.instance.ammoSpawnHigh);
         eventBoundariesMap["Health Spawn"] = (BalanceManager.instance.healthSpawnLow, BalanceManager.instance.healthSpawnHigh);
         eventBoundariesMap["Engage Zombies"] = (0, 0);
+        eventBoundariesMap["Spawn Garlic"] = (BalanceManager.instance.garlicSpawnLow, BalanceManager.instance.garlicSpawnHigh);
+        eventBoundariesMap["Spawn Revive Crystal"] = (BalanceManager.instance.reviveSpawnLow, BalanceManager.instance.reviveSpawnHigh);
     }
 
     private void Start()

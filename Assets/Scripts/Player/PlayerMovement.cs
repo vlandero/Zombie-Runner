@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float groundDrag;
+    private float moveSpeed;
+    private float groundDrag;
+    private float jumpForce;
+    private float forceOnSlope;
+    private float jumpCooldown;
+    private float airMultiplier;
+    private float maxSlopeAngle;
 
-    [SerializeField] private float jumpForce;
-    [SerializeField] private float forceOnSlope;
-    [SerializeField] private float jumpCooldown;
-    [SerializeField] private float airMultiplier;
     bool readyToJump;
-
-    [SerializeField] private float maxSlopeAngle;
     private RaycastHit slopeHit;
 
     private KeyCode jumpKey = KeyCode.Space;
@@ -38,6 +37,13 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         readyToJump = true;
+        moveSpeed = PlayerManager.instance.moveSpeed;
+        groundDrag = PlayerManager.instance.groundDrag;
+        jumpForce = PlayerManager.instance.jumpForce;
+        forceOnSlope = PlayerManager.instance.forceOnSlope;
+        jumpCooldown = PlayerManager.instance.jumpCooldown;
+        airMultiplier = PlayerManager.instance.airMultiplier;
+        maxSlopeAngle = PlayerManager.instance.maxSlopeAngle;
     }
 
     private void Update()

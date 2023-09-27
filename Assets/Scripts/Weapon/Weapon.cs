@@ -59,6 +59,7 @@ public class Weapon : MonoBehaviour
             CreateHitImpact(hit);
             if (!hit.transform.TryGetComponent<EnemyHealth>(out var target)) return;
             EnemyAI enemy = hit.transform.GetComponent<EnemyAI>();
+            enemy.RegainInstantAggresion();
             enemy.Provoke();
             target.TakeDamage(damage);
 

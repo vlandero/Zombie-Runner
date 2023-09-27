@@ -20,6 +20,7 @@ public class PlayerCam : MonoBehaviour
 
     private void Update()
     {
+        // bug when time stops, camera won't stop
         float mouseX = Input.GetAxis("Mouse X") * sensX;
         float mouseY = Input.GetAxis("Mouse Y") * sensY;
 

@@ -12,6 +12,8 @@ public class SpawnerManager : MonoBehaviour
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private GameObject ammoPrefab;
     [SerializeField] private GameObject healthPrefab;
+    [SerializeField] private GameObject garlicPrefab;
+    [SerializeField] private GameObject revivePrefab;
 
     [SerializeField] private float checkCollisionRadius = 4f;
     [SerializeField] private int maxSpawnAttempts = 10;
@@ -42,7 +44,7 @@ public class SpawnerManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.V))
         {
-            RandomSpawn(SpawnEnemy);
+            RandomSpawn(SpawnGarlic);
         }
     }
 
@@ -70,6 +72,16 @@ public class SpawnerManager : MonoBehaviour
         HealthPotion healthHandler = healthObject.GetComponent<HealthPotion>();
 
         healthHandler.SetHealAmount((int)UnityEngine.Random.Range(BalanceManager.instance.healAmountLow, BalanceManager.instance.healAmountHigh));
+    }
+
+    private void SpawnGarlic(Vector3 spawnPoint)
+    {
+          Instantiate(garlicPrefab, spawnPoint, Quaternion.identity);
+    }
+
+    private void SpawnRevive(Vector3 spawnPoint)
+    {
+        Instantiate(revivePrefab, spawnPoint, Quaternion.identity);
     }
     
     public void RandomSpawn(SpawnFunction callback)
@@ -115,6 +127,14 @@ public class SpawnerManager : MonoBehaviour
                 {
                     zombies[i].Provoke();
                 }
+                break;
+            case 5:
+                for(int i = 0; i < rand; ++i)
+                    RandomSpawn(SpawnGarlic);
+                break;
+            case 6:
+                for (int i = 0; i < rand; ++i)
+                    RandomSpawn(SpawnRevive);
                 break;
             default:
                 break;

@@ -20,12 +20,11 @@ public class HealthPotion : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("PlayerCapsule"))
         {
-            PlayerHealth playerHealth = collision.gameObject.GetComponentInParent<PlayerHealth>();
-            if(playerHealth.GetHealth() == playerHealth.GetMaxHealth())
+            if(PlayerManager.instance.GetHealth() == PlayerManager.instance.GetMaxHealth())
             {
                 return;
             }
-            playerHealth.Heal(healAmount);
+            PlayerManager.instance.Heal(healAmount);
             Destroy(gameObject);
         }
         if(collision.gameObject.layer == 10)

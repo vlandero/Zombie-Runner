@@ -46,6 +46,10 @@ public class BalanceManager : MonoBehaviour
     public int healthSpawnHigh = 5;
     public int ammoSpawnLow = 1;
     public int ammoSpawnHigh = 3;
+    public int garlicSpawnLow = 1;
+    public int garlicSpawnHigh = 2;
+    public int reviveSpawnLow = 1;
+    public int reviveSpawnHigh = 2;
 
     public float GetZombieChaseSpeed()
     {

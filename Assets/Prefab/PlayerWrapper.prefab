@@ -10044,8 +10044,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73e2d00089bceec4bac67a08689af4ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensX: 700
-  sensY: 700
+  sensX: 7
+  sensY: 7
   orientation: {fileID: 1175991697312165297}
 --- !u!1 &3480034638146691059
 GameObject:
@@ -10058,7 +10058,6 @@ GameObject:
   - component: {fileID: 1135900763626765548}
   - component: {fileID: 5002911217199834591}
   - component: {fileID: 7928621831082156236}
-  - component: {fileID: 7941775537074505117}
   - component: {fileID: 214385337607865975}
   m_Layer: 0
   m_Name: Player
@@ -10097,13 +10096,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa4f5b376d0ffbc4aa0ba1fbac5b7a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
-  groundDrag: 5
-  jumpForce: 4
-  forceOnSlope: 10
-  jumpCooldown: 0.25
-  airMultiplier: 0.25
-  maxSlopeAngle: 60
   playerHeight: 2
   groundMask:
     serializedVersion: 2
@@ -10136,20 +10128,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &7941775537074505117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3480034638146691059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07efb8403534cb647bc2661cd757b410, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 100
-  maxHp: 100
 --- !u!114 &214385337607865975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10363,7 +10341,7 @@ Transform:
   - {fileID: 7154391353379802987}
   - {fileID: 1135900763626765548}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4603476167891317895
 PrefabInstance:
@@ -10477,7 +10455,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstPersonCamera: {fileID: 8693019759895370531}
   range: 100
-  damage: 25
   fireFlash: {fileID: 3830433210078599411}
   hitImpact: {fileID: 6541647047862461498, guid: 527336af747eb06438b424437f87dade, type: 3}
 --- !u!114 &8526359489386274265

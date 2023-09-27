@@ -130,13 +130,15 @@ public class EnemyAI : MonoBehaviour
         while (!isDead && !isProvoked)
         {
             yield return new WaitForSeconds(Random.Range(3f, 7f));
-            animator.SetBool("walking", true);
-            Vector3 randomDestination = SpawnerManager.instance.GetRandomPoint();
-            navMeshAgent.SetDestination(randomDestination);
-            yield return new WaitUntil(() => ((navMeshAgent.hasPath && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)) || isDead || isProvoked);
-            ResetNavMeshDestination();
-            animator.SetBool("walking", false);
-            
+            if (!isDead)
+            {
+                animator.SetBool("walking", true);
+                Vector3 randomDestination = SpawnerManager.instance.GetRandomPoint();
+                navMeshAgent.SetDestination(randomDestination);
+                yield return new WaitUntil(() => ((navMeshAgent.hasPath && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)) || isDead || isProvoked);
+                ResetNavMeshDestination();
+                animator.SetBool("walking", false);
+            }
         }
         isRandomWalkingCoroutineActive = false;
     }
@@ -168,6 +170,11 @@ public class EnemyAI : MonoBehaviour
     private IEnumerator RegainAggresion()
     {
         yield return new WaitForSeconds(loseAggresionTime);
+        lostAggresion = false;
+    }
+
+    public void RegainInstantAggresion()
+    {
         lostAggresion = false;
     }
 

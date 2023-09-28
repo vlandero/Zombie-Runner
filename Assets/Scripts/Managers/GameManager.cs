@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public static HashSet<EnemyAI> enemies;
     public int score = 0;
     private void Awake()
     {
@@ -16,10 +17,26 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
+        enemies = new HashSet<EnemyAI>();
     }
 
     public void ResetGame()
     {
         score = 0;
+    }
+
+    public void AddEnemy(EnemyAI enemy)
+    {
+        enemies.Add(enemy);
+    }
+
+    public void RemoveEnemy(EnemyAI enemy)
+    {
+        enemies.Remove(enemy);
+    }
+
+    public int GetNumberOfEnemies()
+    {
+        return enemies.Count;
     }
 }

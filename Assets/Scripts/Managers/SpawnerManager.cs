@@ -46,6 +46,11 @@ public class SpawnerManager : MonoBehaviour
         {
             RandomSpawn(SpawnGarlic);
         }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            RandomSpawn(SpawnEnemy);
+        }
     }
 
     private void SpawnEnemy(Vector3 spawnPoint)
@@ -53,9 +58,11 @@ public class SpawnerManager : MonoBehaviour
         GameObject enemyObject = Instantiate(enemyPrefab, spawnPoint, Quaternion.identity);
         EnemyHealth enemyHealth = enemyObject.GetComponent<EnemyHealth>();
         EnemyAttack enemyAttack = enemyObject.GetComponent<EnemyAttack>();
+        EnemyAI enemyAI = enemyObject.GetComponent<EnemyAI>();
 
         enemyHealth.SetMaxHp((int)UnityEngine.Random.Range(BalanceManager.instance.zombieMaxHealthLow, BalanceManager.instance.zombieMaxHealthHigh));
         enemyAttack.SetAttackDamage((int)UnityEngine.Random.Range(BalanceManager.instance.zombieDamageLow, BalanceManager.instance.zombieDamageHigh));
+        GameManager.instance.AddEnemy(enemyAI);
     }
 
     private void SpawnAmmo(Vector3 spawnPoint)

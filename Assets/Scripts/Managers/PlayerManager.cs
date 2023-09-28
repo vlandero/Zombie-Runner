@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
 
     public GameObject playerObject;
 
+    [Header("Movement")]
     public float moveSpeed = 5f;
     public float groundDrag = 5f;
     public float jumpForce = 4f;
@@ -24,6 +25,12 @@ public class PlayerManager : MonoBehaviour
     public int maxRevives = 2;
     public int garlics = 0;
     public int maxGarlics = 2;
+
+    [Header("Others")]
+    public float hpAfterRevive = 50f;
+    public float garlicEffectDuration = 5f;
+    public float garlicEffectDurationAfterRevive = 2.5f;
+    public bool immune = false;
 
     private void Awake()
     {
@@ -50,6 +57,14 @@ public class PlayerManager : MonoBehaviour
         maxHp = BalanceManager.instance.playerMaxHealth;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            UseGarlic();
+        }
+    }
+
     private void UpdateHealthUI()
     {
         UiManager.instance.playerHealthBar.HealthUpdate(hp, maxHp);
@@ -57,6 +72,7 @@ public class PlayerManager : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
+        if (immune) return;
         hp = Mathf.Clamp(hp - damage, 0, maxHp);
         UpdateHealthUI();
         if (hp == 0)
@@ -69,6 +85,22 @@ public class PlayerManager : MonoBehaviour
     {
         hp = Mathf.Clamp(hp + amount, 0, maxHp);
         UpdateHealthUI();
+    }
+
+    private void LoseEnemyEngagement(float t)
+    {
+        foreach (EnemyAI enemy in GameManager.enemies)
+        {
+            enemy.LoseAggresion(t);
+        }
+    }
+
+    private void UseGarlic()
+    {
+        if (garlics == 0) return;
+        garlics--;
+        UiManager.instance.garlicsUI.GarlicsUpdate(garlics);
+        LoseEnemyEngagement(garlicEffectDuration);
     }
 
     public float GetHealth()
@@ -95,8 +127,24 @@ public class PlayerManager : MonoBehaviour
         UiManager.instance.revivesUI.RevivesUpdate(revives);
     }
 
+    private IEnumerator MakeImmune()
+    {
+        immune = true;
+        yield return new WaitForSecondsRealtime(1f);
+        immune = false;
+    }
+
     private void Die()
     {
+        if(revives > 0)
+        {
+            revives--;
+            UiManager.instance.revivesUI.RevivesUpdate(revives);
+            LoseEnemyEngagement(garlicEffectDurationAfterRevive);
+            StartCoroutine(MakeImmune());
+            Heal(hpAfterRevive);
+            return;
+        }
         playerObject.GetComponent<DeathHandler>().HandleDeath();
     }
 }

@@ -1525,6 +1525,7 @@ MonoBehaviour:
   maxRevives: 2
   garlics: 0
   maxGarlics: 2
+  hpAfterRevive: 50
 --- !u!4 &628832300
 Transform:
   m_ObjectHideFlags: 0
@@ -2625,8 +2626,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -807, y: -299}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -789.37, y: -299}
+  m_SizeDelta: {x: 235.26, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1519420750
 MonoBehaviour:
@@ -2773,8 +2774,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -808, y: -362}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -789.8686, y: -362}
+  m_SizeDelta: {x: 236.263, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1581002530
 MonoBehaviour:

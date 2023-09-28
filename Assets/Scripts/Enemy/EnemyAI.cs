@@ -9,7 +9,6 @@ public class EnemyAI : MonoBehaviour
     private float chaseRange;
     private float walkSpeed;
     private float provokedSpeed;
-    private float loseAggresionTime;
     private float attackRange;
     private float turnSpeed = 5f;
 
@@ -24,7 +23,6 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
-        loseAggresionTime = BalanceManager.instance.immunityTime;
         chaseRange = BalanceManager.instance.chaseRangeFlat;
         walkSpeed = BalanceManager.instance.walkSpeedFlat;
         provokedSpeed = BalanceManager.instance.chaseRangeFlat;
@@ -40,10 +38,6 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         distanceToTarget = Vector3.Distance(transform.position, followTarget.position);
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            LoseAggresion();
-        }
         if (isProvoked)
         {
             EngageTarget();
@@ -129,7 +123,7 @@ public class EnemyAI : MonoBehaviour
 
         while (!isDead && !isProvoked)
         {
-            yield return new WaitForSeconds(Random.Range(3f, 7f));
+            yield return new WaitForSecondsRealtime(Random.Range(3f, 7f));
             if (!isDead)
             {
                 animator.SetBool("walking", true);
@@ -149,11 +143,11 @@ public class EnemyAI : MonoBehaviour
             StartCoroutine(StartRandomWalk());
     }
 
-    public void LoseAggresion()
+    public void LoseAggresion(float t)
     {
         bool isWalking = animator.GetBool("walking");
         lostAggresion = true;
-        StartCoroutine(RegainAggresion());
+        StartCoroutine(RegainAggresion(t));
         if (!isWalking)
         {
             isProvoked = false;
@@ -167,9 +161,9 @@ public class EnemyAI : MonoBehaviour
         
     }
 
-    private IEnumerator RegainAggresion()
+    private IEnumerator RegainAggresion(float t)
     {
-        yield return new WaitForSeconds(loseAggresionTime);
+        yield return new WaitForSecondsRealtime(t);
         lostAggresion = false;
     }
 

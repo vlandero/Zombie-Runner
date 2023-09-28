@@ -16,8 +16,6 @@ public class DiceUI : MonoBehaviour
     private float rollDuration = 10f;
     private float rollDelay = 20f;
 
-    private int zombiesInScene = 0;
-
     private void SetBoundaries()
     {
         eventBoundariesMap["Zombie Spawn"] = (BalanceManager.instance.zombieSpawnLow, BalanceManager.instance.zombieSpawnHigh);
@@ -45,9 +43,8 @@ public class DiceUI : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(rollDelay);
-            zombiesInScene = FindObjectsOfType<EnemyAI>().Length;
-            eventBoundariesMap["Engage Zombies"] = (1, zombiesInScene);
+            yield return new WaitForSecondsRealtime(rollDelay);
+            eventBoundariesMap["Engage Zombies"] = (1, GameManager.instance.GetNumberOfEnemies());
             textAnimator.SetTrigger("spin");
             diceAnimator.SetBool("spinning", true);
 
@@ -62,7 +59,7 @@ public class DiceUI : MonoBehaviour
                 text.text = ev + "   " + rand.ToString();
 
                 float delay = .2f ;
-                yield return new WaitForSeconds(delay);
+                yield return new WaitForSecondsRealtime(delay);
             }
             textAnimator.SetTrigger("done");
             diceAnimator.SetBool("spinning", false);
@@ -73,7 +70,9 @@ public class DiceUI : MonoBehaviour
     private string GetRandomEvent()
     {
         int randomIndex = Random.Range(0, events.Count);
-        if(randomIndex + 1 == eventToNumberMap["Engage Zombies"] && zombiesInScene == 0)
+        int zombiesInScene = GameManager.instance.GetNumberOfEnemies();
+        eventBoundariesMap["Engage Zombies"] = (1, zombiesInScene);
+        if (randomIndex + 1 == eventToNumberMap["Engage Zombies"] && zombiesInScene == 0)
         {
             return GetRandomEvent();
         }

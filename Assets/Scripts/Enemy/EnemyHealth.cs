@@ -43,9 +43,11 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die()
     {
+        EnemyAI enemy = GetComponent<EnemyAI>();
         GetComponent<NavMeshAgent>().enabled = false;
         GetComponent<Animator>().SetTrigger("die");
-        GetComponent<EnemyAI>().Die();
+        enemy.Die();
+        GameManager.instance.RemoveEnemy(enemy);
         Destroy(gameObject, 1.1f);
     }
 }

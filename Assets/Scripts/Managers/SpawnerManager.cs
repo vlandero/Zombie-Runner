@@ -49,7 +49,7 @@ public class SpawnerManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            RandomSpawn(SpawnEnemy);
+            RandomSpawn(SpawnHealth);
         }
     }
 
@@ -132,6 +132,7 @@ public class SpawnerManager : MonoBehaviour
                 EnemyAI[] zombies = FindObjectsOfType<EnemyAI>();
                 for(int i = 0; i < rand; ++i)
                 {
+                    zombies[i].RegainInstantAggresion();
                     zombies[i].Provoke();
                 }
                 break;

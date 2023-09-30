@@ -23,10 +23,10 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
-        chaseRange = BalanceManager.instance.chaseRangeFlat;
-        walkSpeed = BalanceManager.instance.walkSpeedFlat;
-        provokedSpeed = BalanceManager.instance.chaseRangeFlat;
-        attackRange = BalanceManager.instance.attackRangeFlat;
+        chaseRange = BalanceManager.instance.GetChaseRange();
+        walkSpeed = BalanceManager.instance.GetZombieWalkSpeed();
+        provokedSpeed = BalanceManager.instance.GetZombieChaseSpeed();
+        attackRange = BalanceManager.instance.GetZombieAttackRange();
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.speed = walkSpeed;
         navMeshAgent.stoppingDistance = attackRange;
@@ -42,9 +42,9 @@ public class EnemyAI : MonoBehaviour
         {
             EngageTarget();
         }
-        else if (distanceToTarget <= chaseRange && !lostAggresion)
+        else if (distanceToTarget <= chaseRange)
         {
-            isProvoked = true;
+            Provoke();
         }
         else if (isRandomWalking)
         {
@@ -69,8 +69,8 @@ public class EnemyAI : MonoBehaviour
     public void Provoke()
     {
         if (lostAggresion) return;
-        isProvoked = true;
         navMeshAgent.speed = provokedSpeed;
+        isProvoked = true;
     }
 
     public void Die()

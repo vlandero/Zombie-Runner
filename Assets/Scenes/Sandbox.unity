@@ -1526,6 +1526,9 @@ MonoBehaviour:
   garlics: 0
   maxGarlics: 2
   hpAfterRevive: 50
+  garlicEffectDuration: 5
+  garlicEffectDurationAfterRevive: 2.5
+  immune: 0
 --- !u!4 &628832300
 Transform:
   m_ObjectHideFlags: 0
@@ -1575,12 +1578,12 @@ MonoBehaviour:
   healthPrefab: {fileID: 3368832731151807190, guid: 84637dacf0199ac4882192424408db2f, type: 3}
   garlicPrefab: {fileID: 8221061990108467024, guid: dacd5c723e323e146aa72e527b019b5d, type: 3}
   revivePrefab: {fileID: 4572369718561881618, guid: 059bae4d2473e7d4ba4a036c00f75f4d, type: 3}
-  checkCollisionRadius: 2
+  checkCollisionRadius: 0.5
   maxSpawnAttempts: 10
   spawnRangeXMin: -11
   spawnRangeXMax: 14
-  spawnRangeYMin: 3
-  spawnRangeYMax: 3
+  spawnRangeYMin: 2
+  spawnRangeYMax: 2
   spawnRangeZMin: -16
   spawnRangeZMax: 20
   groundLayer:
@@ -2926,7 +2929,7 @@ MonoBehaviour:
   zombieDamageHigh: 40
   immunityTime: 5
   walkSpeedFlat: 2
-  provokedSpeedFlat: 4
+  provokedSpeedFlat: 5
   chaseRangeFlat: 7
   attackRangeFlat: 3
   healAmountLow: 10
@@ -3717,15 +3720,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1981314636923796072, guid: 8754c355c7e1a10468ee9119191299b4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 13.215232
+      value: -4.74
       objectReference: {fileID: 0}
     - target: {fileID: 1981314636923796072, guid: 8754c355c7e1a10468ee9119191299b4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.89
+      value: 1.913
       objectReference: {fileID: 0}
     - target: {fileID: 1981314636923796072, guid: 8754c355c7e1a10468ee9119191299b4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 21.116886
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 1981314636923796072, guid: 8754c355c7e1a10468ee9119191299b4, type: 3}
       propertyPath: m_LocalRotation.w

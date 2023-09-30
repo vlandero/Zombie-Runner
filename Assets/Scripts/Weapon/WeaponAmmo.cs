@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class WeaponAmmo : MonoBehaviour
 {
-    [SerializeField] private int ammo = 10;
-    
+    private int ammo;
+
+    private void Start()
+    {
+        ammo = BalanceManager.instance.initialAmmo;
+    }
+
     public void AddAmmo(int amount)
     {
         ammo += amount;

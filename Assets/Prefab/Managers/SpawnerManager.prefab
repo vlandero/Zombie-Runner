@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8214456262211533176
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2227415460201044014}
+  - component: {fileID: 7538568102741530581}
+  m_Layer: 0
+  m_Name: SpawnerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2227415460201044014
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8214456262211533176}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 482.59998, y: 247.4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7538568102741530581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8214456262211533176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 465467a4229d87b438632c7a7111f112, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 8971893146315367832, guid: d6d06965bddb1914092bce63ffc646be, type: 3}
+  ammoPrefab: {fileID: 6447621955434361836, guid: 84d486c1147ec0c4b8f35f2878efa5b8, type: 3}
+  healthPrefab: {fileID: 3368832731151807190, guid: 84637dacf0199ac4882192424408db2f, type: 3}
+  garlicPrefab: {fileID: 8221061990108467024, guid: dacd5c723e323e146aa72e527b019b5d, type: 3}
+  revivePrefab: {fileID: 4572369718561881618, guid: 059bae4d2473e7d4ba4a036c00f75f4d, type: 3}
+  checkCollisionRadius: 0.5
+  maxSpawnAttempts: 10
+  spawnRangeXMin: -11
+  spawnRangeXMax: 14
+  spawnRangeYMin: 2
+  spawnRangeYMax: 2
+  spawnRangeZMin: -16
+  spawnRangeZMax: 20
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1024

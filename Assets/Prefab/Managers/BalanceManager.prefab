@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &495837971438668177
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8555312069259543787}
+  - component: {fileID: 2987125110844196554}
+  m_Layer: 0
+  m_Name: BalanceManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8555312069259543787
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495837971438668177}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.32401085, y: 3.8604615, z: 1.971201}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2987125110844196554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495837971438668177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddd672f2e8dc35947ad877565718d260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMaxHealth: 100
+  weaponDamageLow: 10
+  weaponDamageHigh: 30
+  initialWeaponDamage: 15
+  initialAmmo: 15
+  zombieMaxHealthLow: 50
+  zombieMaxHealthHigh: 120
+  zombieDamageLow: 5
+  zombieDamageHigh: 40
+  immunityTime: 5
+  walkSpeedFlat: 2
+  provokedSpeedFlat: 5
+  chaseRangeFlat: 7
+  attackRangeFlat: 3
+  healAmountLow: 10
+  healAmountHigh: 100
+  ammoAmountLow: 10
+  ammoAmountHigh: 20
+  rollDuration: 5
+  rollCooldown: 5
+  zombieSpawnLow: 3
+  zombieSpawnHigh: 7
+  healthSpawnLow: 1
+  healthSpawnHigh: 5
+  ammoSpawnLow: 1
+  ammoSpawnHigh: 4
+  garlicSpawnLow: 1
+  garlicSpawnHigh: 2
+  reviveSpawnLow: 1
+  reviveSpawnHigh: 2

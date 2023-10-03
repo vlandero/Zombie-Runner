@@ -10,6 +10,7 @@ public class RevivesUI : MonoBehaviour
     private void Start()
     {
         textMesh = GetComponent<TextMeshProUGUI>();
+        RevivesUpdate(PlayerManager.instance.revives);
     }
 
     public void RevivesUpdate(int revives)

@@ -10,6 +10,7 @@ public class GarlicsUI : MonoBehaviour
     private void Start()
     {
         textMesh = GetComponent<TextMeshProUGUI>();
+        GarlicsUpdate(PlayerManager.instance.garlics);
     }
 
     public void GarlicsUpdate(int garlics)

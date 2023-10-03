@@ -29,21 +29,11 @@ public class UiManager : MonoBehaviour
 
     private void Start()
     {
-        ammoUI = FindAnyObjectByType<AmmoUI>();
-        playerHealthBar = FindAnyObjectByType<PlayerHealthBar>();
-        playerHitpoints = FindAnyObjectByType<PlayerHitpoints>();
-        timeElapsedHandler = FindAnyObjectByType<TimeElapsedHandler>();
-        garlicsUI = FindAnyObjectByType<GarlicsUI>();
-        revivesUI = FindAnyObjectByType<RevivesUI>();
-        InitializeUi();
-    }
-
-    private void InitializeUi()
-    {
-        ammoUI.AmmoUpdate(FindAnyObjectByType<WeaponAmmo>().GetAmmo());
-        playerHealthBar.HealthUpdate(PlayerManager.instance.GetHealth(), PlayerManager.instance.GetMaxHealth());
-        playerHitpoints.HealthUpdate(PlayerManager.instance.GetHealth(), PlayerManager.instance.GetMaxHealth());
-        garlicsUI.GarlicsUpdate(PlayerManager.instance.garlics);
-        revivesUI.RevivesUpdate(PlayerManager.instance.revives);
+        ammoUI = FindObjectOfType<AmmoUI>();
+        playerHealthBar = FindObjectOfType<PlayerHealthBar>();
+        playerHitpoints = FindObjectOfType<PlayerHitpoints>();
+        timeElapsedHandler = FindObjectOfType<TimeElapsedHandler>();
+        garlicsUI = FindObjectOfType<GarlicsUI>();
+        revivesUI = FindObjectOfType<RevivesUI>();
     }
 }

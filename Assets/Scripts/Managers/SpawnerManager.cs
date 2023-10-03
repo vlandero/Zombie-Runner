@@ -44,7 +44,7 @@ public class SpawnerManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.V))
         {
-            RandomSpawn(SpawnGarlic);
+            RandomSpawn(SpawnEnemy);
         }
 
         if (Input.GetKeyDown(KeyCode.B))

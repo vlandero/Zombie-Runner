@@ -10,6 +10,7 @@ public class AmmoUI : MonoBehaviour
     private void Start()
     {
         textMesh = GetComponent<TextMeshProUGUI>();
+        textMesh.text = FindObjectOfType<WeaponAmmo>().GetAmmo().ToString();
     }
 
     public void AmmoUpdate(int ammo)

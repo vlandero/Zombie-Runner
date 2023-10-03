@@ -10,6 +10,11 @@ public class PlayerHealthBar : MonoBehaviour
     {
         healthBar.value = currentVal / maxVal;
     }
+
+    private void Start()
+    {
+        HealthUpdate(PlayerManager.instance.GetHealth(), PlayerManager.instance.GetMaxHealth());
+    }
     void Update()
     {
         if (healthBar.value <= 0)

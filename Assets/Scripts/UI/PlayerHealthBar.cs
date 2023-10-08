@@ -13,7 +13,7 @@ public class PlayerHealthBar : MonoBehaviour
 
     private void Start()
     {
-        HealthUpdate(PlayerManager.instance.GetHealth(), PlayerManager.instance.GetMaxHealth());
+        HealthUpdate(BalanceManager.instance.playerMaxHealth, BalanceManager.instance.playerMaxHealth);
     }
     void Update()
     {

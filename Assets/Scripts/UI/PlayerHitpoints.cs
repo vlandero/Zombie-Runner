@@ -10,7 +10,7 @@ public class PlayerHitpoints : MonoBehaviour
     private void Start()
     {
         textMesh = GetComponent<TextMeshProUGUI>();
-        HealthUpdate(PlayerManager.instance.GetHealth(), PlayerManager.instance.GetMaxHealth());
+        HealthUpdate(BalanceManager.instance.playerMaxHealth, BalanceManager.instance.playerMaxHealth);
     }
     public void HealthUpdate(float currentVal, float maxVal)
     {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -30,12 +31,6 @@ public class SpawnerManager : MonoBehaviour
     [SerializeField] private int maxSpawnAttempts = 20;
 
     [Header("Spawn Range")]
-    [SerializeField] private float spawnRangeXMin;
-    [SerializeField] private float spawnRangeXMax;
-    [SerializeField] private float spawnRangeYMin;
-    [SerializeField] private float spawnRangeYMax;
-    [SerializeField] private float spawnRangeZMin;
-    [SerializeField] private float spawnRangeZMax;
     [SerializeField] private List<SpawnRange> spawnRangeList;
     [SerializeField] private LayerMask groundLayer;
 
@@ -89,7 +84,6 @@ public class SpawnerManager : MonoBehaviour
     {
         GameObject healthObject = Instantiate(healthPrefab, spawnPoint, Quaternion.identity);
         HealthPotion healthHandler = healthObject.GetComponent<HealthPotion>();
-
         healthHandler.SetHealAmount((int)UnityEngine.Random.Range(BalanceManager.instance.healAmountLow, BalanceManager.instance.healAmountHigh));
     }
 
@@ -105,15 +99,14 @@ public class SpawnerManager : MonoBehaviour
     
     public void RandomSpawn(SpawnFunction callback)
     {
-        bool spawned = false;
         int attempts = 0;
-        while (!spawned && attempts < maxSpawnAttempts)
+        while (attempts < maxSpawnAttempts)
         {
             Vector3 randomPosition = GetRandomPoint();
             if (!Physics.CheckSphere(randomPosition, checkCollisionRadius))
             {
                 callback(randomPosition);
-                spawned = true;
+                return;
             }
             attempts++;
         }
@@ -122,10 +115,8 @@ public class SpawnerManager : MonoBehaviour
     public Vector3 GetRandomPoint()
     {
         int spawnAreaIndex = UnityEngine.Random.Range(0, spawnRangeList.Count);
-        Debug.Log(spawnAreaIndex);
         SpawnRange spawnRange = spawnRangeList[spawnAreaIndex];
         Vector3 point = new(UnityEngine.Random.Range(spawnRange.spawnRangeXMin, spawnRange.spawnRangeXMax), UnityEngine.Random.Range(spawnRange.spawnRangeYMin, spawnRange.spawnRangeYMax), UnityEngine.Random.Range(spawnRange.spawnRangeZMin, spawnRange.spawnRangeZMax));
-        Debug.Log(point);
         return point;
     }
 
@@ -146,7 +137,7 @@ public class SpawnerManager : MonoBehaviour
                     RandomSpawn(SpawnHealth);
                 break;
             case 4:
-                EnemyAI[] zombies = FindObjectsOfType<EnemyAI>();
+                EnemyAI[] zombies = GameManager.instance.enemies.ToArray();
                 for(int i = 0; i < rand; ++i)
                 {
                     zombies[i].RegainInstantAggresion();

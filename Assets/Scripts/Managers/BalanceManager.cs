@@ -51,6 +51,14 @@ public class BalanceManager : MonoBehaviour
     public int reviveSpawnLow = 1;
     public int reviveSpawnHigh = 2;
 
+    [Header("Event Probability Proportion")]
+    public float garlicSpawn = 1;
+    public float zombieSpawn = 1;
+    public float reviveSpawn = 1;
+    public float ammoSpawn = 1;
+    public float healthSpawn = 1;
+    public float engageZombies = 1;
+
     public float GetZombieChaseSpeed()
     {
         return provokedSpeedFlat;

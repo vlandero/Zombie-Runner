@@ -32,6 +32,8 @@ public class PlayerManager : MonoBehaviour
     public float garlicEffectDurationAfterRevive = 2.5f;
     public bool immune = false;
 
+    public int engagedZombies = 0;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -89,7 +91,9 @@ public class PlayerManager : MonoBehaviour
 
     private void LoseEnemyEngagement(float t)
     {
-        foreach (EnemyAI enemy in GameManager.enemies)
+        engagedZombies = 0;
+        UiManager.instance.engagedZombiesUI.EngagedZombiesUpdate(0);
+        foreach (EnemyAI enemy in GameManager.instance.enemies)
         {
             enemy.LoseAggresion(t);
         }

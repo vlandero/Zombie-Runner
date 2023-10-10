@@ -719,6 +719,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7538568102741530581, guid: e33e5b437bc331945b677d5ae5302084, type: 3}
+      propertyPath: spawnRangeList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538568102741530581, guid: e33e5b437bc331945b677d5ae5302084, type: 3}
+      propertyPath: spawnRangeList.Array.data[0].spawnRangeXMax
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538568102741530581, guid: e33e5b437bc331945b677d5ae5302084, type: 3}
+      propertyPath: spawnRangeList.Array.data[0].spawnRangeXMin
+      value: -11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538568102741530581, guid: e33e5b437bc331945b677d5ae5302084, type: 3}
+      propertyPath: spawnRangeList.Array.data[0].spawnRangeYMax
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538568102741530581, guid: e33e5b437bc331945b677d5ae5302084, type: 3}
+      propertyPath: spawnRangeList.Array.data[0].spawnRangeYMin
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538568102741530581, guid: e33e5b437bc331945b677d5ae5302084, type: 3}
+      propertyPath: spawnRangeList.Array.data[0].spawnRangeZMax
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538568102741530581, guid: e33e5b437bc331945b677d5ae5302084, type: 3}
+      propertyPath: spawnRangeList.Array.data[0].spawnRangeZMin
+      value: -16
+      objectReference: {fileID: 0}
     - target: {fileID: 8214456262211533176, guid: e33e5b437bc331945b677d5ae5302084, type: 3}
       propertyPath: m_Name
       value: SpawnerManager

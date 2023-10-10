@@ -12,6 +12,7 @@ public class UiManager : MonoBehaviour
     public TimeElapsedHandler timeElapsedHandler;
     public GarlicsUI garlicsUI;
     public RevivesUI revivesUI;
+    public EngagedZombiesUI engagedZombiesUI;
 
     private void Awake()
     {
@@ -35,5 +36,6 @@ public class UiManager : MonoBehaviour
         timeElapsedHandler = FindObjectOfType<TimeElapsedHandler>();
         garlicsUI = FindObjectOfType<GarlicsUI>();
         revivesUI = FindObjectOfType<RevivesUI>();
+        engagedZombiesUI = FindObjectOfType<EngagedZombiesUI>();
     }
 }

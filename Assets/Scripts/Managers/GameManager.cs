@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public static HashSet<EnemyAI> enemies;
+    public HashSet<EnemyAI> enemies;
     public int score = 0;
     private void Awake()
     {

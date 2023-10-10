@@ -68,7 +68,8 @@ public class EnemyAI : MonoBehaviour
 
     public void Provoke()
     {
-        if (lostAggresion) return;
+        if (lostAggresion || isProvoked) return;
+        UiManager.instance.engagedZombiesUI.EngagedZombiesUpdate(++PlayerManager.instance.engagedZombies);
         navMeshAgent.speed = provokedSpeed;
         isProvoked = true;
     }
@@ -76,6 +77,7 @@ public class EnemyAI : MonoBehaviour
     public void Die()
     {
         isDead = true;
+        UiManager.instance.engagedZombiesUI.EngagedZombiesUpdate(--PlayerManager.instance.engagedZombies);
     }
 
 

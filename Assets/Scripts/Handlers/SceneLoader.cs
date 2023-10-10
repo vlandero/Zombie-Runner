@@ -5,10 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    [SerializeField] private int sceneNumber = 0;
     public void ReloadGame()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(sceneNumber);
         UiManager.instance.timeElapsedHandler.ResetTimer();
     }
 

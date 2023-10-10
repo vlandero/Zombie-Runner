@@ -805,7 +805,7 @@ GameObject:
   - component: {fileID: 8337939522917390337}
   - component: {fileID: 8323300597517449478}
   - component: {fileID: 8558932626863193195}
-  - component: {fileID: 3094164178612107973}
+  - component: {fileID: 3768667294569424133}
   m_Layer: 5
   m_Name: Garlics
   m_TagString: Untagged
@@ -853,7 +853,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e94ec2cf41264214a9922ab3d1b936e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3094164178612107973
+--- !u!114 &3768667294569424133
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -936,7 +936,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: NaN, y: NaN, z: NaN, w: NaN}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1905,7 +1905,7 @@ GameObject:
   - component: {fileID: 8870625610482860117}
   - component: {fileID: 4064117385542243524}
   - component: {fileID: 3766593318484653694}
-  - component: {fileID: 4592232277256975579}
+  - component: {fileID: 157848860269601193}
   m_Layer: 5
   m_Name: Hitpoints
   m_TagString: Untagged
@@ -1930,7 +1930,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -623, y: -442}
+  m_AnchoredPosition: {x: -599, y: -442}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4064117385542243524
@@ -1953,7 +1953,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93cc15f3210223a4498a47d38142a9bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4592232277256975579
+--- !u!114 &157848860269601193
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2036,7 +2036,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: NaN, y: NaN, z: NaN, w: NaN}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2816,7 +2816,7 @@ GameObject:
   - component: {fileID: 559178675198803969}
   - component: {fileID: 8188460467109203090}
   - component: {fileID: 2053279378912773218}
-  - component: {fileID: 3327207355463773828}
+  - component: {fileID: 7894897877363685240}
   m_Layer: 5
   m_Name: Revives
   m_TagString: Untagged
@@ -2864,7 +2864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14a0f601554e8964a9f1007129fecf02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3327207355463773828
+--- !u!114 &7894897877363685240
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2947,7 +2947,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: NaN, y: NaN, z: NaN, w: NaN}
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

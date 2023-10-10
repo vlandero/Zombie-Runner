@@ -3,6 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+struct SpawnRange
+{
+    public float spawnRangeXMin;
+    public float spawnRangeXMax;
+    public float spawnRangeYMin;
+    public float spawnRangeYMax;
+    public float spawnRangeZMin;
+    public float spawnRangeZMax;
+}
+
 public class SpawnerManager : MonoBehaviour
 {
     public static SpawnerManager instance;
@@ -15,8 +26,8 @@ public class SpawnerManager : MonoBehaviour
     [SerializeField] private GameObject garlicPrefab;
     [SerializeField] private GameObject revivePrefab;
 
-    [SerializeField] private float checkCollisionRadius = 4f;
-    [SerializeField] private int maxSpawnAttempts = 10;
+    [SerializeField] private float checkCollisionRadius = 1f;
+    [SerializeField] private int maxSpawnAttempts = 20;
 
     [Header("Spawn Range")]
     [SerializeField] private float spawnRangeXMin;
@@ -25,6 +36,7 @@ public class SpawnerManager : MonoBehaviour
     [SerializeField] private float spawnRangeYMax;
     [SerializeField] private float spawnRangeZMin;
     [SerializeField] private float spawnRangeZMax;
+    [SerializeField] private List<SpawnRange> spawnRangeList;
     [SerializeField] private LayerMask groundLayer;
 
     private void Awake()
@@ -97,7 +109,7 @@ public class SpawnerManager : MonoBehaviour
         int attempts = 0;
         while (!spawned && attempts < maxSpawnAttempts)
         {
-            Vector3 randomPosition = new(UnityEngine.Random.Range(spawnRangeXMin, spawnRangeXMax), UnityEngine.Random.Range(spawnRangeYMin, spawnRangeYMax), UnityEngine.Random.Range(spawnRangeZMin, spawnRangeZMax));
+            Vector3 randomPosition = GetRandomPoint();
             if (!Physics.CheckSphere(randomPosition, checkCollisionRadius))
             {
                 callback(randomPosition);
@@ -109,7 +121,12 @@ public class SpawnerManager : MonoBehaviour
 
     public Vector3 GetRandomPoint()
     {
-        return new(UnityEngine.Random.Range(spawnRangeXMin, spawnRangeXMax), 0, UnityEngine.Random.Range(spawnRangeZMin, spawnRangeZMax));
+        int spawnAreaIndex = UnityEngine.Random.Range(0, spawnRangeList.Count);
+        Debug.Log(spawnAreaIndex);
+        SpawnRange spawnRange = spawnRangeList[spawnAreaIndex];
+        Vector3 point = new(UnityEngine.Random.Range(spawnRange.spawnRangeXMin, spawnRange.spawnRangeXMax), UnityEngine.Random.Range(spawnRange.spawnRangeYMin, spawnRange.spawnRangeYMax), UnityEngine.Random.Range(spawnRange.spawnRangeZMin, spawnRange.spawnRangeZMax));
+        Debug.Log(point);
+        return point;
     }
 
     public void TriggerEvent(int eventCode, int rand)

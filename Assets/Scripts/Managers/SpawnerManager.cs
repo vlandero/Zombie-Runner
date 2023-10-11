@@ -56,7 +56,7 @@ public class SpawnerManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.B))
         {
-            RandomSpawn(SpawnHealth);
+            RandomSpawn(SpawnGarlic);
         }
     }
 

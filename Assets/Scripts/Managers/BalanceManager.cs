@@ -26,6 +26,8 @@ public class BalanceManager : MonoBehaviour
     public float provokedSpeedFlat = 5f;
     public float chaseRangeFlat = 7f;
     public float attackRangeFlat = 3f;
+    public float timeToLoseAggression = 2f;
+    public float loseAggressionProbability = 5f;
 
     [Header("Heal Balance")]
     public float healAmountLow = 10;

@@ -21,6 +21,8 @@ public class EnemyAI : MonoBehaviour
     private bool isRandomWalkingCoroutineActive = false;
     private Animator animator;
 
+    private float timeElapsedSinceLastCheck = 0f;
+
     void Start()
     {
         chaseRange = BalanceManager.instance.GetChaseRange();
@@ -50,11 +52,26 @@ public class EnemyAI : MonoBehaviour
         {
             StartRandomWalkingCoroutine();
         }
+
+        if(timeElapsedSinceLastCheck > BalanceManager.instance.timeToLoseAggression)
+        {
+            if(isProvoked && distanceToTarget > chaseRange)
+            {
+                float randomNumber = Random.Range(0f, 1f);
+                if(randomNumber < BalanceManager.instance.loseAggressionProbability / 100)
+                {
+                    LoseAggresion(3f);
+                }
+            }
+            timeElapsedSinceLastCheck = 0f;
+        }
+        timeElapsedSinceLastCheck += Time.deltaTime;
     }
 
     public void EngageTarget()
     {
         isRandomWalking = false;
+        UiManager.instance.immuneUI.SetImmune(false);
         FaceTarget();
         if (distanceToTarget >= navMeshAgent.stoppingDistance)
         {

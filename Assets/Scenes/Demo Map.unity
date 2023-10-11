@@ -2646,6 +2646,14 @@ PrefabInstance:
       propertyPath: engageZombies
       value: 1.07
       objectReference: {fileID: 0}
+    - target: {fileID: 2987125110844196554, guid: b62a94ed10285e2448d062503d404653, type: 3}
+      propertyPath: timeToLoseAggression
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2987125110844196554, guid: b62a94ed10285e2448d062503d404653, type: 3}
+      propertyPath: loseAggressionProbability
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 8555312069259543787, guid: b62a94ed10285e2448d062503d404653, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -16395,10 +16403,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4521068426457795420, guid: a15f12614bf2ac141bcb23faed7a8f61, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5047260405108238785, guid: a15f12614bf2ac141bcb23faed7a8f61, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

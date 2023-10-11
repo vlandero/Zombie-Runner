@@ -13,6 +13,7 @@ public class UiManager : MonoBehaviour
     public GarlicsUI garlicsUI;
     public RevivesUI revivesUI;
     public EngagedZombiesUI engagedZombiesUI;
+    public ImmuneUI immuneUI;
 
     private void Awake()
     {
@@ -37,5 +38,6 @@ public class UiManager : MonoBehaviour
         garlicsUI = FindObjectOfType<GarlicsUI>();
         revivesUI = FindObjectOfType<RevivesUI>();
         engagedZombiesUI = FindObjectOfType<EngagedZombiesUI>();
+        immuneUI = FindObjectOfType<ImmuneUI>();
     }
 }

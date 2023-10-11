@@ -89,6 +89,13 @@ public class PlayerManager : MonoBehaviour
         UpdateHealthUI();
     }
 
+    private IEnumerator SetImmuneUIForSeconds(float seconds)
+    {
+        UiManager.instance.immuneUI.SetImmune(true);
+        yield return new WaitForSeconds(seconds);
+        UiManager.instance.immuneUI.SetImmune(false);
+    }
+
     private void LoseEnemyEngagement(float t)
     {
         engagedZombies = 0;
@@ -97,6 +104,8 @@ public class PlayerManager : MonoBehaviour
         {
             enemy.LoseAggresion(t);
         }
+
+        StartCoroutine(SetImmuneUIForSeconds(t));
     }
 
     private void UseGarlic()

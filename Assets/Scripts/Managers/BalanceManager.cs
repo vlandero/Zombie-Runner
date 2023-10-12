@@ -15,6 +15,8 @@ public class BalanceManager : MonoBehaviour
     public float weaponDamageHigh = 30;
     public float initialWeaponDamage = 15;
     public int initialAmmo = 15;
+    public int weaponDamageChangeLow = -3;
+    public int weaponDamageChangeHigh = 3;
 
     [Header("Zombie Balance")]
     public float zombieMaxHealthLow = 50;
@@ -60,6 +62,7 @@ public class BalanceManager : MonoBehaviour
     public float ammoSpawn = 1;
     public float healthSpawn = 1;
     public float engageZombies = 1;
+    public float weaponDamageChange = 1;
 
     public float GetZombieChaseSpeed()
     {

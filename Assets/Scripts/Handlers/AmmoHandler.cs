@@ -7,7 +7,12 @@ public class AmmoHandler : MonoBehaviour
     [SerializeField] private int availableAmmo = 7;
 
     private bool opened = false;
-    private Weapon weapon = null;
+    private Weapon weapon;
+
+    private void Start()
+    {
+        weapon = PlayerManager.instance.playerObject.GetComponentInChildren<Weapon>();
+    }
 
     public int GetAvailableAmmo()
     {
@@ -22,40 +27,23 @@ public class AmmoHandler : MonoBehaviour
     public void Open()
     {
         opened = true;
+        weapon.GetAmmoComponent().AddAmmo(availableAmmo);
         transform.GetComponent<Animator>().SetBool("opened", true);
         GetComponentInChildren<AmmoCrateText>().gameObject.SetActive(false);
         Destroy(transform.GetComponentInChildren<AmmoBoxBullets>().gameObject, .8f);
         Destroy(gameObject, 10f);
     }
 
-    public void Update()
+    public bool GetOpened()
     {
-        if (weapon != null && Input.GetKeyDown(KeyCode.E) && !opened)
-        {
-            weapon.GetAmmoComponent().AddAmmo(availableAmmo);
-            Open();
-
-        }
+        return opened;
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Transform playerWrapper = collision.gameObject.transform.root;
-            weapon = playerWrapper.GetComponentInChildren<Weapon>();
-        }
         if(collision.gameObject.layer == 10)
         {
             GetComponentInParent<Rigidbody>().isKinematic = true;
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            weapon = null;
         }
     }
 }

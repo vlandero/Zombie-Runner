@@ -98,6 +98,7 @@ public class EnemyAI : MonoBehaviour
     {
         isDead = true;
         UiManager.instance.engagedZombiesUI.EngagedZombiesUpdate(--PlayerManager.instance.engagedZombies);
+        GetComponent<Collider>().enabled = false;
     }
 
 

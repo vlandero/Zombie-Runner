@@ -8,6 +8,8 @@ TagManager:
   - AmmoCaseBullets
   - PlayerMainCamera
   - PlayerCapsule
+  - Terrain
+  - Wood
   layers:
   - Default
   - TransparentFX

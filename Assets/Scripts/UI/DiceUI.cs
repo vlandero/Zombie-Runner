@@ -11,14 +11,16 @@ public enum EventType
     HealthSpawn,
     EngageZombies,
     SpawnGarlic,
-    SpawnReviveCrystal
+    SpawnReviveCrystal,
+    WeaponDamageChange
 }
 
 public class DiceUI : MonoBehaviour
 {
     private readonly List<EventType> events = new List<EventType> {
         EventType.ZombieSpawn, EventType.AmmoSpawn, EventType.HealthSpawn,
-        EventType.EngageZombies, EventType.SpawnGarlic, EventType.SpawnReviveCrystal
+        EventType.EngageZombies, EventType.SpawnGarlic, EventType.SpawnReviveCrystal,
+        EventType.WeaponDamageChange
     };
 
     private Dictionary<EventType, int> eventToNumberMap = new Dictionary<EventType, int>();
@@ -37,6 +39,7 @@ public class DiceUI : MonoBehaviour
     private float ammoSpawn;
     private float healthSpawn;
     private float engageZombies;
+    private float weaponDamageChange;
 
     private void SetBoundaries()
     {
@@ -46,17 +49,19 @@ public class DiceUI : MonoBehaviour
         eventBoundariesMap[EventType.EngageZombies] = (0, 0);
         eventBoundariesMap[EventType.SpawnGarlic] = (BalanceManager.instance.garlicSpawnLow, BalanceManager.instance.garlicSpawnHigh);
         eventBoundariesMap[EventType.SpawnReviveCrystal] = (BalanceManager.instance.reviveSpawnLow, BalanceManager.instance.reviveSpawnHigh);
+        eventBoundariesMap[EventType.WeaponDamageChange] = (BalanceManager.instance.weaponDamageChangeLow, BalanceManager.instance.weaponDamageChangeHigh);
     }
 
     private void SetProbabilities()
     {
-        float sum = garlicSpawn + zombieSpawn + reviveSpawn + ammoSpawn + healthSpawn + engageZombies;
+        float sum = garlicSpawn + zombieSpawn + reviveSpawn + ammoSpawn + healthSpawn + engageZombies + weaponDamageChange;
         eventProbabilities[EventType.SpawnGarlic] = garlicSpawn / sum;
         eventProbabilities[EventType.SpawnReviveCrystal] = reviveSpawn / sum;
         eventProbabilities[EventType.HealthSpawn] = healthSpawn / sum;
         eventProbabilities[EventType.EngageZombies] = engageZombies / sum;
         eventProbabilities[EventType.ZombieSpawn] = zombieSpawn / sum;
         eventProbabilities[EventType.AmmoSpawn] = ammoSpawn / sum;
+        eventProbabilities[EventType.WeaponDamageChange] = weaponDamageChange / sum;
     }
 
     private void Start()
@@ -75,6 +80,7 @@ public class DiceUI : MonoBehaviour
         ammoSpawn = BalanceManager.instance.ammoSpawn;
         healthSpawn = BalanceManager.instance.healthSpawn;
         engageZombies = BalanceManager.instance.engageZombies;
+        weaponDamageChange = BalanceManager.instance.weaponDamageChange;
         SetProbabilities();
         StartCoroutine(RollDicePeriodically());
     }
@@ -118,7 +124,7 @@ public class DiceUI : MonoBehaviour
             }
             crt += eventProbabilities[e];
         }
-        return events[events.Count - 1];
+        return events[^1];
     }
 
 

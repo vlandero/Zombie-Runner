@@ -26,13 +26,15 @@ public class SpawnerManager : MonoBehaviour
     [SerializeField] private GameObject healthPrefab;
     [SerializeField] private GameObject garlicPrefab;
     [SerializeField] private GameObject revivePrefab;
-
-    [SerializeField] private float checkCollisionRadius = 1f;
+    
+    [SerializeField] private float checkCollisionRadius = 2f;
     [SerializeField] private int maxSpawnAttempts = 20;
 
     [Header("Spawn Range")]
     [SerializeField] private List<SpawnRange> spawnRangeList;
     [SerializeField] private LayerMask groundLayer;
+
+    private Weapon weapon;
 
     private void Awake()
     {
@@ -45,6 +47,11 @@ public class SpawnerManager : MonoBehaviour
         {
             instance = this;
         }
+    }
+
+    private void Start()
+    {
+        weapon = PlayerManager.instance.playerObject.GetComponentInChildren<Weapon>();
     }
 
     private void Update()
@@ -61,7 +68,7 @@ public class SpawnerManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.N))
         {
-            TriggerEvent(4, 4);
+            RandomSpawn(SpawnAmmo);
         }
     }
 
@@ -144,16 +151,16 @@ public class SpawnerManager : MonoBehaviour
             case 4:
                 EnemyAI[] zombies = GameManager.instance.enemies.ToArray();
                 int j = 0;
-                int guarantee = 0;
-                while(j < rand && guarantee < zombies.Length)
+                int spawnedZombies = 0;
+                while(spawnedZombies < rand && j < zombies.Length)
                 {
                     if (!zombies[j].IsProvoked())
                     {
                         zombies[j].RegainInstantAggresion();
                         zombies[j].Provoke();
-                        ++j;
+                        ++spawnedZombies;
                     }
-                    guarantee++;
+                    ++j;
                 }
                 break;
             case 5:
@@ -163,6 +170,9 @@ public class SpawnerManager : MonoBehaviour
             case 6:
                 for (int i = 0; i < rand; ++i)
                     RandomSpawn(SpawnRevive);
+                break;
+            case 7:
+                weapon.SetDamage(weapon.GetDamage() + rand);
                 break;
             default:
                 break;

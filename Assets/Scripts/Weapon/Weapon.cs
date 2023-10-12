@@ -43,7 +43,8 @@ public class Weapon : MonoBehaviour
 
     public void SetDamage(float newDamage)
     {
-        damage = newDamage;
+        damage = Mathf.Clamp(newDamage, BalanceManager.instance.weaponDamageLow, BalanceManager.instance.weaponDamageHigh);
+        UiManager.instance.weaponDamageUI.UpdateWeaponDamage(damage);
     }
 
     private void Shoot()

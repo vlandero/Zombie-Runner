@@ -35,7 +35,7 @@ Transform:
   - {fileID: 2025020258614825426}
   - {fileID: 6781766904793687630}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &4063283727879790192
 CharacterController:
@@ -60,7 +60,7 @@ CharacterController:
   m_Radius: 0.52
   m_SlopeLimit: 45
   m_StepOffset: 0.15
-  m_SkinWidth: 0.0001
+  m_SkinWidth: 0.02
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2494252839836428254

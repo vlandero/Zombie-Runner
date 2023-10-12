@@ -38,8 +38,8 @@ public class BalanceManager : MonoBehaviour
     public int ammoAmountHigh = 20;
 
     [Header("Game Balance")]
-    public int rollDuration = 10;
-    public int rollCooldown = 20;
+    public float rollDuration = 10;
+    public float rollCooldown = 20;
 
     [Header("Event Boundaries")]
     public int zombieSpawnLow = 3;

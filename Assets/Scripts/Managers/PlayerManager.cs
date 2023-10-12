@@ -98,13 +98,10 @@ public class PlayerManager : MonoBehaviour
 
     private void LoseEnemyEngagement(float t)
     {
-        engagedZombies = 0;
-        UiManager.instance.engagedZombiesUI.EngagedZombiesUpdate(0);
         foreach (EnemyAI enemy in GameManager.instance.enemies)
         {
             enemy.LoseAggresion(t);
         }
-
         StartCoroutine(SetImmuneUIForSeconds(t));
     }
 

@@ -58,6 +58,11 @@ public class SpawnerManager : MonoBehaviour
         {
             RandomSpawn(SpawnGarlic);
         }
+
+        if(Input.GetKeyDown(KeyCode.N))
+        {
+            TriggerEvent(4, 4);
+        }
     }
 
     private void SpawnEnemy(Vector3 spawnPoint)
@@ -138,10 +143,17 @@ public class SpawnerManager : MonoBehaviour
                 break;
             case 4:
                 EnemyAI[] zombies = GameManager.instance.enemies.ToArray();
-                for(int i = 0; i < rand; ++i)
+                int j = 0;
+                int guarantee = 0;
+                while(j < rand && guarantee < zombies.Length)
                 {
-                    zombies[i].RegainInstantAggresion();
-                    zombies[i].Provoke();
+                    if (!zombies[j].IsProvoked())
+                    {
+                        zombies[j].RegainInstantAggresion();
+                        zombies[j].Provoke();
+                        ++j;
+                    }
+                    guarantee++;
                 }
                 break;
             case 5:

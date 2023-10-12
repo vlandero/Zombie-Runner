@@ -16,7 +16,6 @@ public class EnemyAI : MonoBehaviour
     private float distanceToTarget = Mathf.Infinity;
     private bool lostAggresion = false;
     private bool isProvoked = false;
-    private bool isRandomWalking = false;
     private bool isDead = false;
     private bool isRandomWalkingCoroutineActive = false;
     private Animator animator;
@@ -48,7 +47,7 @@ public class EnemyAI : MonoBehaviour
         {
             Provoke();
         }
-        else if (isRandomWalking)
+        else if (!isProvoked)
         {
             StartRandomWalkingCoroutine();
         }
@@ -70,7 +69,6 @@ public class EnemyAI : MonoBehaviour
 
     public void EngageTarget()
     {
-        isRandomWalking = false;
         UiManager.instance.immuneUI.SetImmune(false);
         FaceTarget();
         if (distanceToTarget >= navMeshAgent.stoppingDistance)
@@ -81,6 +79,11 @@ public class EnemyAI : MonoBehaviour
         {
             AttackTarget();
         }
+    }
+
+    public bool IsProvoked()
+    {
+        return isProvoked;
     }
 
     public void Provoke()
@@ -164,11 +167,11 @@ public class EnemyAI : MonoBehaviour
 
     public void LoseAggresion(float t)
     {
-        bool isWalking = animator.GetBool("walking");
         lostAggresion = true;
         StartCoroutine(RegainAggresion(t));
-        if (!isWalking)
+        if (isProvoked)
         {
+            UiManager.instance.engagedZombiesUI.EngagedZombiesUpdate(--PlayerManager.instance.engagedZombies);
             isProvoked = false;
             navMeshAgent.speed = walkSpeed;
             animator.ResetTrigger("move");

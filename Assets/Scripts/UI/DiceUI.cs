@@ -110,7 +110,6 @@ public class DiceUI : MonoBehaviour
     private EventType GetEventFromNumber(float number)
     {
         float crt = 0;
-        Debug.Log(number);
         foreach (EventType e in events)
         {
             if (number < (crt + eventProbabilities[e]))
@@ -127,7 +126,6 @@ public class DiceUI : MonoBehaviour
     {
         float randomNum = Random.Range(0f, 1f);
         EventType randomEvent = GetEventFromNumber(randomNum);
-        Debug.Log(randomEvent);
         int zombiesInScene = GameManager.instance.GetNumberOfEnemies();
         int notEngagedZombies = zombiesInScene - PlayerManager.instance.engagedZombies;
         eventBoundariesMap[EventType.EngageZombies] = (1, notEngagedZombies);

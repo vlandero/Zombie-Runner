@@ -7,17 +7,17 @@ public class WeaponZoom : MonoBehaviour
     public Camera playerCamera;
 
     private float zoomedOutFOV = 87f;
-    private float zoomedOutSensitivity = 7f;
+    private float zoomedOutSensitivity = 300f;
     private float zoomedInFOV = 35f;
-    private float zoomedInSensitivity = 3f;
+    private float zoomedInSensitivity = 135f;
 
-    private PlayerCam playerCam;
+    private MouseLook playerCam;
 
     private bool zoomedInToggle = false;
 
     private void Start()
     {
-        playerCam = FindAnyObjectByType<PlayerCam>();
+        playerCam = FindAnyObjectByType<MouseLook>();
     }
 
     void Update()
@@ -27,15 +27,15 @@ public class WeaponZoom : MonoBehaviour
             if (zoomedInToggle == false)
             {
                 playerCamera.fieldOfView = zoomedInFOV;
-                playerCam.sensX = zoomedInSensitivity;
-                playerCam.sensY = zoomedInSensitivity;
+                playerCam.mouseSensitivityX = zoomedInSensitivity;
+                playerCam.mouseSensitivityY = zoomedInSensitivity;
                 zoomedInToggle = true;
             }
             else
             {
                 playerCamera.fieldOfView = zoomedOutFOV;
-                playerCam.sensX = zoomedOutSensitivity;
-                playerCam.sensY = zoomedOutSensitivity;
+                playerCam.mouseSensitivityX = zoomedOutSensitivity;
+                playerCam.mouseSensitivityY = zoomedOutSensitivity;
                 zoomedInToggle = false;
             }
         }

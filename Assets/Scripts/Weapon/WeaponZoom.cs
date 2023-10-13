@@ -18,6 +18,8 @@ public class WeaponZoom : MonoBehaviour
     private void Start()
     {
         playerCam = FindAnyObjectByType<MouseLook>();
+        zoomedOutSensitivity = playerCam.mouseSensitivityX;
+        zoomedInSensitivity = zoomedOutSensitivity * .55f;
     }
 
     void Update()

@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 6920501}
   m_Layer: 10
   m_Name: Floor 1
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -987,9 +987,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4a9e9d9bf7133d14aaea3bbead931bef, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.074
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1071,6 +1071,116 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!82 &212196567
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212196555}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: e2e5f30e01c94f442b4db3f8c9e2ae17, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.066
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &212196568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212196555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97c5cbd5f04060947bd228b29596f3ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainAudio: {fileID: 212196561}
+  engagedAudio: {fileID: 212196567}
 --- !u!43 &220183013
 Mesh:
   m_ObjectHideFlags: 0
@@ -2661,6 +2771,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2987125110844196554, guid: b62a94ed10285e2448d062503d404653, type: 3}
+      propertyPath: chaseRangeFlat
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2987125110844196554, guid: b62a94ed10285e2448d062503d404653, type: 3}
       propertyPath: zombieSpawnLow
       value: 5
       objectReference: {fileID: 0}
@@ -2918,7 +3032,7 @@ GameObject:
   - component: {fileID: 525308226}
   m_Layer: 10
   m_Name: Roof (2)
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -3463,7 +3577,7 @@ GameObject:
   - component: {fileID: 782017404}
   m_Layer: 10
   m_Name: Connected Rooms
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -13591,7 +13705,7 @@ GameObject:
   - component: {fileID: 1360909909}
   m_Layer: 10
   m_Name: Inside Roof 2
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -13932,7 +14046,7 @@ GameObject:
   - component: {fileID: 1379613746}
   m_Layer: 10
   m_Name: Spawn House
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -13975,7 +14089,7 @@ GameObject:
   - component: {fileID: 1506850734}
   m_Layer: 10
   m_Name: Roof (1)
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -15457,7 +15571,7 @@ GameObject:
   - component: {fileID: 1741969422}
   m_Layer: 10
   m_Name: Inside Roof 1
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -16298,7 +16412,7 @@ GameObject:
   - component: {fileID: 1934602090}
   m_Layer: 10
   m_Name: Floor 2
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -16649,7 +16763,7 @@ GameObject:
   - component: {fileID: 1980139562}
   m_Layer: 10
   m_Name: Inside Corridor Top
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -17383,6 +17497,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 797038518014199722, guid: 859c94a08cce27942a8bff8a583b9441, type: 3}
+      propertyPath: mouseSensitivityX
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 797038518014199722, guid: 859c94a08cce27942a8bff8a583b9441, type: 3}
+      propertyPath: mouseSensitivityY
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2494252839836428254, guid: 859c94a08cce27942a8bff8a583b9441, type: 3}
+      propertyPath: movementSpeed
+      value: 6.07
+      objectReference: {fileID: 0}
     - target: {fileID: 2495433916327807954, guid: 859c94a08cce27942a8bff8a583b9441, type: 3}
       propertyPath: gameOverCanvas
       value: 
@@ -17400,5 +17526,11 @@ PrefabInstance:
       addedObject: {fileID: 88842616}
     - targetCorrespondingSourceObject: {fileID: 7143933687093495005, guid: 859c94a08cce27942a8bff8a583b9441, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 212196568}
+    - targetCorrespondingSourceObject: {fileID: 7143933687093495005, guid: 859c94a08cce27942a8bff8a583b9441, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 212196561}
+    - targetCorrespondingSourceObject: {fileID: 7143933687093495005, guid: 859c94a08cce27942a8bff8a583b9441, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 212196567}
   m_SourcePrefab: {fileID: 100100000, guid: 859c94a08cce27942a8bff8a583b9441, type: 3}

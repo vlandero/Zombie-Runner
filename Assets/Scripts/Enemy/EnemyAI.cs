@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum MaterialType
+{
+    Grass,
+    Wood
+}
+
 public class EnemyAI : MonoBehaviour
 {
     private Transform followTarget;
@@ -22,6 +28,15 @@ public class EnemyAI : MonoBehaviour
 
     private float timeElapsedSinceLastCheck = 0f;
 
+    [SerializeField] private AudioSource walkOnGrassAudio;
+    [SerializeField] private AudioSource walkOnWoodAudio;
+    [SerializeField] private AudioSource runOnGrassAudio;
+    [SerializeField] private AudioSource runOnWoodAudio;
+
+    private MaterialType currentMaterial = MaterialType.Grass;
+    private bool currentIsRunning = false;
+    private AudioSource currentAudioSource = null;
+
     void Start()
     {
         chaseRange = BalanceManager.instance.GetChaseRange();
@@ -39,6 +54,7 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         distanceToTarget = Vector3.Distance(transform.position, followTarget.position);
+        CheckMaterialUnderFeet();
         if (isProvoked)
         {
             EngageTarget();
@@ -66,6 +82,78 @@ public class EnemyAI : MonoBehaviour
         }
         timeElapsedSinceLastCheck += Time.deltaTime;
     }
+
+    private void CheckMaterialUnderFeet()
+    {
+        bool isWalking = animator.GetBool("walking");
+        if((!isWalking && !isProvoked) || isDead)
+        {
+            if (currentAudioSource != null)
+            {
+                currentAudioSource.Stop();
+            }
+            return;
+        }
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1.0f))
+        {
+            if (hit.collider.CompareTag("Wood"))
+            {
+                ChangeMaterial(MaterialType.Wood, isProvoked);
+            }
+            else if (hit.collider.CompareTag("Terrain"))
+            {
+                ChangeMaterial(MaterialType.Grass, isProvoked);
+            }
+        }
+    }
+
+    private void ChangeSound(MaterialType newMaterial, bool isRunning)
+    {
+        if (currentAudioSource != null)
+        {
+            currentAudioSource.Stop();
+        }
+
+        currentMaterial = newMaterial;
+        currentIsRunning = isRunning;
+
+        if (isRunning)
+        {
+            if (currentMaterial == MaterialType.Wood)
+            {
+                currentAudioSource = runOnWoodAudio;
+            }
+            else if (currentMaterial == MaterialType.Grass)
+            {
+                currentAudioSource = runOnGrassAudio;
+            }
+        }
+        else
+        {
+            if (currentMaterial == MaterialType.Wood)
+            {
+                currentAudioSource = walkOnWoodAudio;
+            }
+            else if (currentMaterial == MaterialType.Grass)
+            {
+                currentAudioSource = walkOnGrassAudio;
+            }
+        }
+
+        if (currentAudioSource != null)
+        {
+            currentAudioSource.Play();
+        }
+    }
+
+    private void ChangeMaterial(MaterialType newMaterial, bool isRunning)
+    {
+        if (newMaterial != currentMaterial || isRunning != currentIsRunning || (currentAudioSource != null && !currentAudioSource.isPlaying))
+        {
+            ChangeSound(newMaterial, isRunning);
+        }
+    }
+
 
     public void EngageTarget()
     {
@@ -97,6 +185,8 @@ public class EnemyAI : MonoBehaviour
     public void Die()
     {
         isDead = true;
+        currentAudioSource.Stop();
+        currentAudioSource = null;
         UiManager.instance.engagedZombiesUI.EngagedZombiesUpdate(--PlayerManager.instance.engagedZombies);
         GetComponent<Collider>().enabled = false;
     }

@@ -8,6 +8,8 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float range = 100f;
     [SerializeField] private ParticleSystem fireFlash;
     [SerializeField] private GameObject hitImpact;
+    [SerializeField] private AudioSource shootWithAmmo;
+    [SerializeField] private AudioSource shootWithoutAmmo;
 
     private float damage = 25f;
     private WeaponAmmo ammo;
@@ -27,7 +29,10 @@ public class Weapon : MonoBehaviour
                 Shoot();
                 ammo.RemoveAmmo(1);
             }
-            // else play sound
+            else
+            {
+                shootWithoutAmmo.Play();
+            }
         }
     }
 
@@ -50,6 +55,7 @@ public class Weapon : MonoBehaviour
     private void Shoot()
     {
         PlayFlash();
+        shootWithAmmo.Play();
         ProcessRaycast();
     }
 

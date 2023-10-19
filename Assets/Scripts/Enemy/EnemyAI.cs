@@ -32,13 +32,22 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private AudioSource walkOnWoodAudio;
     [SerializeField] private AudioSource runOnGrassAudio;
     [SerializeField] private AudioSource runOnWoodAudio;
+    [SerializeField] private AudioSource dieAudio;
+    [SerializeField] private AudioSource attackAudio;
 
     private MaterialType currentMaterial = MaterialType.Grass;
     private bool currentIsRunning = false;
     private AudioSource currentAudioSource = null;
+    private bool initialized = false;
 
     void Start()
     {
+        Init();
+    }
+
+    public void Init()
+    {
+        if(initialized) return;
         chaseRange = BalanceManager.instance.GetChaseRange();
         walkSpeed = BalanceManager.instance.GetZombieWalkSpeed();
         provokedSpeed = BalanceManager.instance.GetZombieChaseSpeed();
@@ -48,6 +57,35 @@ public class EnemyAI : MonoBehaviour
         navMeshAgent.stoppingDistance = attackRange;
         animator = GetComponent<Animator>();
         followTarget = PlayerManager.instance.playerObject.transform;
+        walkOnGrassAudio.maxDistance = BalanceManager.instance.zombieSoundRange;
+        walkOnWoodAudio.maxDistance = BalanceManager.instance.zombieSoundRange;
+        runOnGrassAudio.maxDistance = BalanceManager.instance.zombieSoundRange;
+        runOnWoodAudio.maxDistance = BalanceManager.instance.zombieSoundRange;
+        dieAudio.maxDistance = BalanceManager.instance.zombieSoundRange;
+        attackAudio.maxDistance = BalanceManager.instance.zombieSoundRange;
+        initialized = true;
+    }
+
+    public void InstantiateStart()
+    {
+        Init();
+        navMeshAgent.speed = walkSpeed;
+        navMeshAgent.stoppingDistance = attackRange;
+        navMeshAgent.enabled = true;
+        distanceToTarget = Mathf.Infinity;
+        lostAggresion = false;
+        isProvoked = false;
+        isDead = false;
+        isRandomWalkingCoroutineActive = false;
+        currentAudioSource = null;
+        currentIsRunning = false;
+        currentMaterial = MaterialType.Grass;
+        timeElapsedSinceLastCheck = 0f;
+        GetComponent<Collider>().enabled = true;
+        animator.ResetTrigger("die");
+        animator.ResetTrigger("move");
+        animator.ResetTrigger("idle");
+        animator.SetBool("walking", false);
         StartCoroutine(StartRandomWalk());
     }
 
@@ -182,14 +220,7 @@ public class EnemyAI : MonoBehaviour
         isProvoked = true;
     }
 
-    public void Die()
-    {
-        isDead = true;
-        currentAudioSource.Stop();
-        currentAudioSource = null;
-        UiManager.instance.engagedZombiesUI.EngagedZombiesUpdate(--PlayerManager.instance.engagedZombies);
-        GetComponent<Collider>().enabled = false;
-    }
+   
 
 
     private void FaceTarget()
@@ -210,6 +241,11 @@ public class EnemyAI : MonoBehaviour
     private void AttackTarget()
     {
         animator.SetBool("attack", true);
+    }
+
+    public void PlayAttackAudio()
+    {
+        attackAudio.Play();
     }
 
     private void ResetNavMeshDestination()
@@ -285,6 +321,18 @@ public class EnemyAI : MonoBehaviour
         lostAggresion = false;
     }
 
+    public void Die()
+    {
+        GetComponent<NavMeshAgent>().enabled = false;
+        isDead = true;
+        if(currentAudioSource != null) currentAudioSource.Stop();
+        currentAudioSource = null;
+        dieAudio.loop = false;
+        dieAudio.Play();
+        if(isProvoked) UiManager.instance.engagedZombiesUI.EngagedZombiesUpdate(--PlayerManager.instance.engagedZombies);
+        GetComponent<Collider>().enabled = false;
+        StopAllCoroutines();
+    }
 
     private void OnDrawGizmosSelected()
     {

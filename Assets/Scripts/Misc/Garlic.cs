@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Garlic : MonoBehaviour
 {
+    public void InitializeStart()
+    {
+        GetComponent<Rigidbody>().isKinematic = false;
+    }
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("PlayerCapsule"))

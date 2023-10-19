@@ -18,7 +18,7 @@ struct SpawnRange
 public class SpawnerManager : MonoBehaviour
 {
     public static SpawnerManager instance;
-    public delegate void SpawnFunction(Vector3 position);
+    public delegate bool SpawnFunction(Vector3 position);
 
     [Header("Prefabs")]
     [SerializeField] private GameObject enemyPrefab;
@@ -35,10 +35,10 @@ public class SpawnerManager : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     private Weapon weapon;
+    private ObjectPooler objectPooler;
 
     private void Awake()
     {
-
         if (instance != null && instance != this)
         {
             Destroy(this);
@@ -52,6 +52,7 @@ public class SpawnerManager : MonoBehaviour
     private void Start()
     {
         weapon = PlayerManager.instance.playerObject.GetComponentInChildren<Weapon>();
+        objectPooler = ObjectPooler.instance;
     }
 
     private void Update()
@@ -60,55 +61,77 @@ public class SpawnerManager : MonoBehaviour
         {
             RandomSpawn(SpawnEnemy);
         }
-
         if (Input.GetKeyDown(KeyCode.B))
         {
-            RandomSpawn(SpawnGarlic);
-        }
-
-        if(Input.GetKeyDown(KeyCode.N))
-        {
-            RandomSpawn(SpawnAmmo);
+            RandomSpawn(SpawnHealth);
         }
     }
 
-    private void SpawnEnemy(Vector3 spawnPoint)
+    private bool SpawnEnemy(Vector3 spawnPoint)
     {
-        GameObject enemyObject = Instantiate(enemyPrefab, spawnPoint, Quaternion.identity);
+        Debug.Log(objectPooler);
+        GameObject enemyObject = objectPooler.SetActiveObjects(PoolTag.Enemy, 1).FirstOrDefault();
+        if (enemyObject == null)
+        {
+            return false;
+        }
+        enemyObject.transform.position = spawnPoint;
         EnemyHealth enemyHealth = enemyObject.GetComponent<EnemyHealth>();
         EnemyAttack enemyAttack = enemyObject.GetComponent<EnemyAttack>();
         EnemyAI enemyAI = enemyObject.GetComponent<EnemyAI>();
-
+        enemyAI.InstantiateStart();
         enemyHealth.SetMaxHp((int)UnityEngine.Random.Range(BalanceManager.instance.zombieMaxHealthLow, BalanceManager.instance.zombieMaxHealthHigh));
+        enemyHealth.InstantiateStart();
         enemyAttack.SetAttackDamage((int)UnityEngine.Random.Range(BalanceManager.instance.zombieDamageLow, BalanceManager.instance.zombieDamageHigh));
         GameManager.instance.AddEnemy(enemyAI);
+        return true;
     }
 
-    private void SpawnAmmo(Vector3 spawnPoint)
+    private bool SpawnAmmo(Vector3 spawnPoint)
     {
-        GameObject ammoObject = Instantiate(ammoPrefab, spawnPoint, Quaternion.identity);
-        AmmoHandler ammoHandler = ammoObject.GetComponentInChildren<AmmoHandler>();
+        GameObject ammoObject = objectPooler.SetActiveObjects(PoolTag.Ammo, 1).FirstOrDefault();
+        if (ammoObject == null) return false;
+
+        ammoObject.transform.position = spawnPoint;
+        AmmoHandler ammoHandler = ammoObject.GetComponent<AmmoHandler>();
+        ammoHandler.InitializeStart();
 
         ammoHandler.SetAvailableAmmo(UnityEngine.Random.Range(BalanceManager.instance.ammoAmountLow, BalanceManager.instance.ammoAmountHigh));
+        return true;
     }
 
-    private void SpawnHealth(Vector3 spawnPoint)
+    private bool SpawnHealth(Vector3 spawnPoint)
     {
-        GameObject healthObject = Instantiate(healthPrefab, spawnPoint, Quaternion.identity);
+        GameObject healthObject = objectPooler.SetActiveObjects(PoolTag.Health, 1).FirstOrDefault();
+        if (healthObject == null) return false;
+
+        healthObject.transform.position = spawnPoint;
         HealthPotion healthHandler = healthObject.GetComponent<HealthPotion>();
+        healthHandler.InitializeStart();
         healthHandler.SetHealAmount((int)UnityEngine.Random.Range(BalanceManager.instance.healAmountLow, BalanceManager.instance.healAmountHigh));
+        return true;
     }
 
-    private void SpawnGarlic(Vector3 spawnPoint)
+    private bool SpawnGarlic(Vector3 spawnPoint)
     {
-          Instantiate(garlicPrefab, spawnPoint, Quaternion.identity);
+        GameObject garlicObject = objectPooler.SetActiveObjects(PoolTag.Garlic, 1).FirstOrDefault();
+        if (garlicObject == null) return false;
+
+        garlicObject.GetComponent<Garlic>().InitializeStart();
+        garlicObject.transform.position = spawnPoint;
+        return true;
     }
 
-    private void SpawnRevive(Vector3 spawnPoint)
+    private bool SpawnRevive(Vector3 spawnPoint)
     {
-        Instantiate(revivePrefab, spawnPoint, Quaternion.identity);
+        GameObject reviveObject = objectPooler.SetActiveObjects(PoolTag.Revive, 1).FirstOrDefault();
+        if (reviveObject == null) return false;
+
+        reviveObject.GetComponent<Revive>().InitializeStart();
+        reviveObject.transform.position = spawnPoint;
+        return true;
     }
-    
+
     public void RandomSpawn(SpawnFunction callback)
     {
         int attempts = 0;
@@ -117,12 +140,21 @@ public class SpawnerManager : MonoBehaviour
             Vector3 randomPosition = GetRandomPoint();
             if (!Physics.CheckSphere(randomPosition, checkCollisionRadius))
             {
-                callback(randomPosition);
-                return;
+                bool wasSpawned = callback(randomPosition);
+                if (wasSpawned)
+                {
+                    Debug.Log("Spawned");
+                    return;
+                }
+                else
+                {
+                    Debug.Log("Failed to spawn, no object available in pool.");
+                }
             }
             attempts++;
         }
     }
+
 
     public Vector3 GetRandomPoint()
     {

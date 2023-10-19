@@ -30,6 +30,7 @@ public class BalanceManager : MonoBehaviour
     public float attackRangeFlat = 3f;
     public float timeToLoseAggression = 2f;
     public float loseAggressionProbability = 5f;
+    public float zombieSoundRange = 10f;
 
     [Header("Heal Balance")]
     public float healAmountLow = 10;
@@ -54,6 +55,7 @@ public class BalanceManager : MonoBehaviour
     public int garlicSpawnHigh = 2;
     public int reviveSpawnLow = 1;
     public int reviveSpawnHigh = 2;
+    public int maxScorePickupableOnMap = 1;
 
     [Header("Event Probability Proportion")]
     public float garlicSpawn = 1;

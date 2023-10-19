@@ -9,6 +9,7 @@ public class EnemyAttack : MonoBehaviour
     public void AttackHitEvent()
     {
         PlayerManager.instance.TakeDamage(attackDamage);
+        GetComponentInChildren<EnemyAI>().PlayAttackAudio();
     }
 
     public void SetAttackDamage(float attackDamage)

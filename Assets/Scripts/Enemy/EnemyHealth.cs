@@ -9,10 +9,20 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private float maxHp = 100f;
     [SerializeField] private EnemyHealthBar healthBar;
 
-    private void Start()
+    private bool initialized = false;
+
+    public void InstantiateStart()
     {
-        healthBar = GetComponentInChildren<EnemyHealthBar>();
+        Init();
         healthBar.HealthUpdate(hp, maxHp);
+        healthBar.InstantiateStart();
+    }
+
+    public void Init()
+    {
+        if(initialized) return;
+        healthBar = GetComponentInChildren<EnemyHealthBar>();
+        initialized = true;
     }
 
     public void TakeDamage(float damage)
@@ -44,10 +54,9 @@ public class EnemyHealth : MonoBehaviour
     private void Die()
     {
         EnemyAI enemy = GetComponent<EnemyAI>();
-        GetComponent<NavMeshAgent>().enabled = false;
         GetComponent<Animator>().SetTrigger("die");
         enemy.Die();
         GameManager.instance.RemoveEnemy(enemy);
-        Destroy(gameObject, 1.1f);
+        ObjectPooler.instance.Destroy(gameObject, 1.1f);
     }
 }

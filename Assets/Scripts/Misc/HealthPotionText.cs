@@ -16,6 +16,10 @@ public class HealthPotionText : MonoBehaviour
     private void Update()
     {
         transform.LookAt(transform.position + mainCamera.transform.rotation * Vector3.forward, mainCamera.transform.rotation * Vector3.up);
-        text.text = "Health: " + GetComponentInParent<HealthPotion>().GetHealAmount();
+    }
+
+    public void UpdateText(float amount)
+    {
+        text.text = "Health: " + amount.ToString();
     }
 }

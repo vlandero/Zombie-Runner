@@ -19,12 +19,17 @@ public class EnemyHealthBar : MonoBehaviour
         mainCamera = GameObject.FindGameObjectWithTag("PlayerMainCamera").GetComponent<Camera>();
     }
 
+    public void InstantiateStart()
+    {
+        gameObject.SetActive(true);
+    }
+
     void Update()
     {
         transform.LookAt(transform.position + mainCamera.transform.rotation * Vector3.forward, mainCamera.transform.rotation * Vector3.up);
         if(healthBar.value <= 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
         if(healthBar.value <= 0.3f)
         {

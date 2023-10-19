@@ -9,10 +9,15 @@ public class AmmoBoxTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && canOpen && !ammoHandler.GetOpened())
+        if (Input.GetKeyDown(KeyCode.E) && canOpen)
         {
             ammoHandler.Open();
         }
+    }
+
+    public void InitializeStart()
+    {
+        canOpen = false;
     }
     private void OnTriggerEnter(Collider other)
     {

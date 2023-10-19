@@ -9,6 +9,12 @@ public class HealthPotion : MonoBehaviour
     public void SetHealAmount(float amount)
     {
         healAmount = amount;
+        GetComponentInChildren<HealthPotionText>().UpdateText(healAmount);
+    }
+
+    public void InitializeStart()
+    {
+        GetComponent<Rigidbody>().isKinematic = false;
     }
 
     public float GetHealAmount()
@@ -25,12 +31,11 @@ public class HealthPotion : MonoBehaviour
                 return;
             }
             PlayerManager.instance.Heal(healAmount);
-            Destroy(gameObject);
+            ObjectPooler.instance.Destroy(gameObject, 0f);
         }
         if(collision.gameObject.layer == 10)
         {
-            Rigidbody rb = GetComponent<Rigidbody>();
-            rb.isKinematic = true;
+            GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 }

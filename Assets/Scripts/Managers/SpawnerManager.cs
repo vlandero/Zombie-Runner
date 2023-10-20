@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 [System.Serializable]
 struct SpawnRange
@@ -69,13 +70,15 @@ public class SpawnerManager : MonoBehaviour
 
     private bool SpawnEnemy(Vector3 spawnPoint)
     {
-        Debug.Log(objectPooler);
         GameObject enemyObject = objectPooler.SetActiveObjects(PoolTag.Enemy, 1).FirstOrDefault();
         if (enemyObject == null)
         {
             return false;
         }
+        enemyObject.GetComponent<NavMeshAgent>().enabled = false;
         enemyObject.transform.position = spawnPoint;
+        enemyObject.GetComponent<NavMeshAgent>().enabled = true;
+        Debug.Log(enemyObject.transform.position);
         EnemyHealth enemyHealth = enemyObject.GetComponent<EnemyHealth>();
         EnemyAttack enemyAttack = enemyObject.GetComponent<EnemyAttack>();
         EnemyAI enemyAI = enemyObject.GetComponent<EnemyAI>();
@@ -84,6 +87,7 @@ public class SpawnerManager : MonoBehaviour
         enemyHealth.InstantiateStart();
         enemyAttack.SetAttackDamage((int)UnityEngine.Random.Range(BalanceManager.instance.zombieDamageLow, BalanceManager.instance.zombieDamageHigh));
         GameManager.instance.AddEnemy(enemyAI);
+        Debug.Log("After instantiating everything: " + enemyObject.transform.position);
         return true;
     }
 
@@ -92,9 +96,9 @@ public class SpawnerManager : MonoBehaviour
         GameObject ammoObject = objectPooler.SetActiveObjects(PoolTag.Ammo, 1).FirstOrDefault();
         if (ammoObject == null) return false;
 
-        ammoObject.transform.position = spawnPoint;
         AmmoHandler ammoHandler = ammoObject.GetComponent<AmmoHandler>();
         ammoHandler.InitializeStart();
+        ammoObject.transform.position = spawnPoint;
 
         ammoHandler.SetAvailableAmmo(UnityEngine.Random.Range(BalanceManager.instance.ammoAmountLow, BalanceManager.instance.ammoAmountHigh));
         return true;
@@ -138,17 +142,13 @@ public class SpawnerManager : MonoBehaviour
         while (attempts < maxSpawnAttempts)
         {
             Vector3 randomPosition = GetRandomPoint();
+            Debug.Log("Random position: " + randomPosition);
             if (!Physics.CheckSphere(randomPosition, checkCollisionRadius))
             {
                 bool wasSpawned = callback(randomPosition);
                 if (wasSpawned)
                 {
-                    Debug.Log("Spawned");
                     return;
-                }
-                else
-                {
-                    Debug.Log("Failed to spawn, no object available in pool.");
                 }
             }
             attempts++;

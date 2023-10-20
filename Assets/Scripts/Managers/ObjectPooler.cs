@@ -57,34 +57,30 @@ public class ObjectPooler : MonoBehaviour
             poolDictionary.Add(pool.tag, objectPool);
         }
 
-        Debug.Log("Object pooler initialized.");
     }
+
 
     public List<GameObject> SetActiveObjects(PoolTag tag, int count)
     {
-        Debug.Log("Setting Active Objects");
-        Debug.Log("Tag: " + tag);
         if (!poolDictionary.ContainsKey(tag))
         {
-            Debug.Log("Pool with tag " + tag + " doesn't exist.");
             return new List<GameObject>();
         }
 
 
-        List<GameObject> objectsToSetActive = new List<GameObject>();
+        List<GameObject> objectsToSetActive = new();
 
         for (int i = 0; i < count; i++)
         {
             if (poolDictionary[tag].Count > 0)
             {
                 GameObject objectToSetActive = poolDictionary[tag].Dequeue();
-                Debug.Log("Setting object active");
                 objectToSetActive.SetActive(true);
                 objectsToSetActive.Add(objectToSetActive);
+                Debug.Log("Object set active " + objectToSetActive.transform.position);
             }
             else
             {
-                Debug.Log("Not enough objects in the pool to complete the request.");
                 break;
             }
         }

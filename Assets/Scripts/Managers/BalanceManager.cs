@@ -23,7 +23,6 @@ public class BalanceManager : MonoBehaviour
     public float zombieMaxHealthHigh = 120;
     public float zombieDamageLow = 5;
     public float zombieDamageHigh = 40;
-    public float immunityTime = 5f;
     public float walkSpeedFlat = 2f;
     public float provokedSpeedFlat = 5f;
     public float chaseRangeFlat = 7f;

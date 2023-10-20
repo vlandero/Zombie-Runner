@@ -69,9 +69,9 @@ public class EnemyAI : MonoBehaviour
     public void InstantiateStart()
     {
         Init();
+        navMeshAgent.enabled = true;
         navMeshAgent.speed = walkSpeed;
         navMeshAgent.stoppingDistance = attackRange;
-        navMeshAgent.enabled = true;
         distanceToTarget = Mathf.Infinity;
         lostAggresion = false;
         isProvoked = false;

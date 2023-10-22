@@ -2,8 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Revive : MonoBehaviour
+public class ScoreItem : MonoBehaviour
 {
+    private int amount;
+
+    public void SetScore(int score)
+    {
+        amount = score;
+    }
+
     public void InitializeStart()
     {
         GetComponent<Rigidbody>().isKinematic = false;
@@ -12,12 +19,9 @@ public class Revive : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("PlayerCapsule"))
         {
-            if (PlayerManager.instance.revives == PlayerManager.instance.maxRevives)
-            {
-                return;
-            }
-            PlayerManager.instance.PickUpRevive();
-            ObjectPooler.instance.Destroy(gameObject, 0f);
+            GameManager.instance.SetScore(GameManager.instance.GetScore() + amount);
+            GameManager.instance.SetIsScoreOnMap(false);
+            ObjectPooler.instance.DestroyObject(gameObject);
         }
         if (collision.gameObject.layer == 10)
         {

@@ -8,7 +8,8 @@ public enum PoolTag
     Ammo,
     Health,
     Garlic,
-    Revive
+    Revive,
+    Score
 }
 
 public class ObjectPooler : MonoBehaviour
@@ -77,7 +78,6 @@ public class ObjectPooler : MonoBehaviour
                 GameObject objectToSetActive = poolDictionary[tag].Dequeue();
                 objectToSetActive.SetActive(true);
                 objectsToSetActive.Add(objectToSetActive);
-                Debug.Log("Object set active " + objectToSetActive.transform.position);
             }
             else
             {
@@ -93,10 +93,8 @@ public class ObjectPooler : MonoBehaviour
         StartCoroutine(DestroyCoroutine(objectToDestroy, delay));
     }
 
-    private IEnumerator DestroyCoroutine(GameObject objectToDestroy, float delay)
+    public void DestroyObject(GameObject objectToDestroy)
     {
-        yield return new WaitForSeconds(delay);
-
         objectToDestroy.SetActive(false);
 
         PoolTag objectTag = objectToDestroy.GetComponent<PoolableObject>().poolTag;
@@ -109,5 +107,13 @@ public class ObjectPooler : MonoBehaviour
         {
             Debug.Log("The object's tag does not match any pool. Make sure the object has the PoolableObject component and the tag is set correctly.");
         }
+
+    }
+
+    private IEnumerator DestroyCoroutine(GameObject objectToDestroy, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        DestroyObject(objectToDestroy);
     }
 }

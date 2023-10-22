@@ -39,6 +39,10 @@ public class BalanceManager : MonoBehaviour
     public int ammoAmountLow = 10;
     public int ammoAmountHigh = 20;
 
+    [Header("Score Balance")]
+    public int scoreAmountLow = 10;
+    public int scoreAmountHigh = 30;
+
     [Header("Game Balance")]
     public float rollDuration = 10;
     public float rollCooldown = 20;

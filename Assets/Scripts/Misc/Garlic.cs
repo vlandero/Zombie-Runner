@@ -17,7 +17,7 @@ public class Garlic : MonoBehaviour
                 return;
             }
             PlayerManager.instance.PickUpGarlic();
-            Destroy(gameObject);
+            ObjectPooler.instance.Destroy(gameObject, 0f);
         }
         if (collision.gameObject.layer == 10)
         {

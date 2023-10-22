@@ -27,7 +27,8 @@ public class SpawnerManager : MonoBehaviour
     [SerializeField] private GameObject healthPrefab;
     [SerializeField] private GameObject garlicPrefab;
     [SerializeField] private GameObject revivePrefab;
-    
+    [SerializeField] private GameObject scorePrefab;
+
     [SerializeField] private float checkCollisionRadius = 2f;
     [SerializeField] private int maxSpawnAttempts = 20;
 
@@ -64,8 +65,28 @@ public class SpawnerManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
-            RandomSpawn(SpawnHealth);
+            RandomSpawn(SpawnAmmo);
         }
+    }
+
+    public void RandomSpawnScore()
+    {
+        RandomSpawn(SpawnScore);
+    }
+
+    private bool SpawnScore(Vector3 spawnPoint)
+    {
+        GameObject scoreObject = objectPooler.SetActiveObjects(PoolTag.Score, 1).FirstOrDefault();
+        if (scoreObject == null) return false;
+
+        int scoreAmount = UnityEngine.Random.Range(BalanceManager.instance.scoreAmountLow, BalanceManager.instance.scoreAmountHigh);
+
+        ScoreItem scoreItem = scoreObject.GetComponent<ScoreItem>();
+        scoreItem.SetScore(scoreAmount);
+
+        scoreObject.transform.position = spawnPoint;
+        scoreItem.InitializeStart();
+        return true;
     }
 
     private bool SpawnEnemy(Vector3 spawnPoint)
@@ -78,7 +99,6 @@ public class SpawnerManager : MonoBehaviour
         enemyObject.GetComponent<NavMeshAgent>().enabled = false;
         enemyObject.transform.position = spawnPoint;
         enemyObject.GetComponent<NavMeshAgent>().enabled = true;
-        Debug.Log(enemyObject.transform.position);
         EnemyHealth enemyHealth = enemyObject.GetComponent<EnemyHealth>();
         EnemyAttack enemyAttack = enemyObject.GetComponent<EnemyAttack>();
         EnemyAI enemyAI = enemyObject.GetComponent<EnemyAI>();
@@ -87,7 +107,6 @@ public class SpawnerManager : MonoBehaviour
         enemyHealth.InstantiateStart();
         enemyAttack.SetAttackDamage((int)UnityEngine.Random.Range(BalanceManager.instance.zombieDamageLow, BalanceManager.instance.zombieDamageHigh));
         GameManager.instance.AddEnemy(enemyAI);
-        Debug.Log("After instantiating everything: " + enemyObject.transform.position);
         return true;
     }
 
@@ -142,7 +161,6 @@ public class SpawnerManager : MonoBehaviour
         while (attempts < maxSpawnAttempts)
         {
             Vector3 randomPosition = GetRandomPoint();
-            Debug.Log("Random position: " + randomPosition);
             if (!Physics.CheckSphere(randomPosition, checkCollisionRadius))
             {
                 bool wasSpawned = callback(randomPosition);

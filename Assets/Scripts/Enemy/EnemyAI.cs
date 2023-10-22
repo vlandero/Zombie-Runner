@@ -332,6 +332,9 @@ public class EnemyAI : MonoBehaviour
         if(isProvoked) UiManager.instance.engagedZombiesUI.EngagedZombiesUpdate(--PlayerManager.instance.engagedZombies);
         GetComponent<Collider>().enabled = false;
         StopAllCoroutines();
+        float maxHp = GetComponent<EnemyHealth>().GetMaxHp();
+        float damage = GetComponent<EnemyAttack>().GetAttackDamage();
+        GameManager.instance.SetScore(GameManager.instance.GetScore() + (int)(maxHp + damage)/5);
     }
 
     private void OnDrawGizmosSelected()

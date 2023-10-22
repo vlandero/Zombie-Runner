@@ -6,7 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public HashSet<EnemyAI> enemies;
-    public int score = 0;
+
+    private int score = 0;
+    private bool isScoreOnMap = false;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -18,6 +20,31 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
         enemies = new HashSet<EnemyAI>();
+    }
+
+    private void Update()
+    {
+        if (!isScoreOnMap)
+        {
+            isScoreOnMap = true;
+            SpawnerManager.instance.RandomSpawnScore();
+        }
+    }
+
+    public void SetIsScoreOnMap(bool s)
+    {
+        isScoreOnMap = s;
+    }
+
+    public void SetScore(int s)
+    {
+        score = s;
+        UiManager.instance.scoreUI.SetScore(score);
+    }
+
+    public int GetScore()
+    {
+        return score;
     }
 
     public void ResetGame()

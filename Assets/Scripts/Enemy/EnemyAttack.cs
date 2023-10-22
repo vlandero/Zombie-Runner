@@ -17,4 +17,9 @@ public class EnemyAttack : MonoBehaviour
         GetComponentInChildren<EnemyDamageUI>().SetDamage(attackDamage);
         this.attackDamage = attackDamage;
     }
+
+    public float GetAttackDamage()
+    {
+        return attackDamage;
+    }
 }

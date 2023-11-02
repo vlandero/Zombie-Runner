@@ -2994,7 +2994,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2987125110844196554, guid: b62a94ed10285e2448d062503d404653, type: 3}
       propertyPath: initialAmmo
-      value: 0
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2987125110844196554, guid: b62a94ed10285e2448d062503d404653, type: 3}
       propertyPath: reviveSpawn
@@ -3010,7 +3010,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2987125110844196554, guid: b62a94ed10285e2448d062503d404653, type: 3}
       propertyPath: rollCooldown
-      value: 2.8
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2987125110844196554, guid: b62a94ed10285e2448d062503d404653, type: 3}
       propertyPath: rollDuration
@@ -3038,7 +3038,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2987125110844196554, guid: b62a94ed10285e2448d062503d404653, type: 3}
       propertyPath: zombieSpawnHigh
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2987125110844196554, guid: b62a94ed10285e2448d062503d404653, type: 3}
       propertyPath: zombieSoundRange
@@ -18530,7 +18530,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4521068426457795420, guid: a15f12614bf2ac141bcb23faed7a8f61, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4750880165554298340, guid: a15f12614bf2ac141bcb23faed7a8f61, type: 3}
       propertyPath: m_margin.w
@@ -19196,7 +19196,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 97d9af993296c68478ed622d28b59c6e, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.504
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BalanceManager : MonoBehaviour
@@ -9,6 +8,11 @@ public class BalanceManager : MonoBehaviour
 
     [Header("Initial Player Stats")]
     public float playerMaxHealth = 100;
+    public float healthAfterRevive = 50;
+    public float garlicEffectDuration = 5f;
+    public float garlicEffectDurationAfterRevive = 2.5f;
+    public int maxRevives = 2;
+    public int maxGarlics = 2;
 
     [Header("Weapon Balance")]
     public float weaponDamageLow = 10;
@@ -17,6 +21,10 @@ public class BalanceManager : MonoBehaviour
     public int initialAmmo = 15;
     public int weaponDamageChangeLow = -3;
     public int weaponDamageChangeHigh = 3;
+
+    [Header("Bomb Balance")]
+    public float bombDamage = 85;
+    public float bombRange = 10;
 
     [Header("Zombie Balance")]
     public float zombieMaxHealthLow = 50;
@@ -68,6 +76,7 @@ public class BalanceManager : MonoBehaviour
     public float healthSpawn = 1;
     public float engageZombies = 1;
     public float weaponDamageChange = 1;
+    public float spawnGarlic = 1;
 
     public float GetZombieChaseSpeed()
     {

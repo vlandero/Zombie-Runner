@@ -220,9 +220,6 @@ public class EnemyAI : MonoBehaviour
         isProvoked = true;
     }
 
-   
-
-
     private void FaceTarget()
     {
         Vector3 direction = (followTarget.position - transform.position).normalized;

@@ -9,7 +9,8 @@ public enum PoolTag
     Health,
     Garlic,
     Revive,
-    Score
+    Score,
+    Bomb
 }
 
 public class ObjectPooler : MonoBehaviour
@@ -59,7 +60,6 @@ public class ObjectPooler : MonoBehaviour
         }
 
     }
-
 
     public List<GameObject> SetActiveObjects(PoolTag tag, int count)
     {

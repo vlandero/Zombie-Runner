@@ -16,6 +16,7 @@ public class UiManager : MonoBehaviour
     public ImmuneUI immuneUI;
     public WeaponDamageUI weaponDamageUI;
     public ScoreUI scoreUI;
+    public BombAvailableUI bombAvailableUI;
 
     private void Awake()
     {
@@ -43,5 +44,6 @@ public class UiManager : MonoBehaviour
         immuneUI = FindObjectOfType<ImmuneUI>();
         weaponDamageUI = FindObjectOfType<WeaponDamageUI>();
         scoreUI = FindObjectOfType<ScoreUI>();
+        bombAvailableUI = FindObjectOfType<BombAvailableUI>();
     }
 }

@@ -12,7 +12,8 @@ public enum EventType
     EngageZombies,
     SpawnGarlic,
     SpawnReviveCrystal,
-    WeaponDamageChange
+    WeaponDamageChange,
+    SpawnBomb
 }
 
 public class DiceUI : MonoBehaviour
@@ -20,7 +21,7 @@ public class DiceUI : MonoBehaviour
     private readonly List<EventType> events = new List<EventType> {
         EventType.ZombieSpawn, EventType.AmmoSpawn, EventType.HealthSpawn,
         EventType.EngageZombies, EventType.SpawnGarlic, EventType.SpawnReviveCrystal,
-        EventType.WeaponDamageChange
+        EventType.WeaponDamageChange, EventType.SpawnBomb
     };
 
     private Dictionary<EventType, int> eventToNumberMap = new Dictionary<EventType, int>();
@@ -40,6 +41,7 @@ public class DiceUI : MonoBehaviour
     private float healthSpawn;
     private float engageZombies;
     private float weaponDamageChange;
+    private float spawnGarlic;
 
     private void SetBoundaries()
     {
@@ -54,7 +56,7 @@ public class DiceUI : MonoBehaviour
 
     private void SetProbabilities()
     {
-        float sum = garlicSpawn + zombieSpawn + reviveSpawn + ammoSpawn + healthSpawn + engageZombies + weaponDamageChange;
+        float sum = garlicSpawn + zombieSpawn + reviveSpawn + ammoSpawn + healthSpawn + engageZombies + weaponDamageChange + spawnGarlic;
         eventProbabilities[EventType.SpawnGarlic] = garlicSpawn / sum;
         eventProbabilities[EventType.SpawnReviveCrystal] = reviveSpawn / sum;
         eventProbabilities[EventType.HealthSpawn] = healthSpawn / sum;
@@ -62,6 +64,7 @@ public class DiceUI : MonoBehaviour
         eventProbabilities[EventType.ZombieSpawn] = zombieSpawn / sum;
         eventProbabilities[EventType.AmmoSpawn] = ammoSpawn / sum;
         eventProbabilities[EventType.WeaponDamageChange] = weaponDamageChange / sum;
+        eventProbabilities[EventType.SpawnBomb] = spawnGarlic / sum;
     }
 
     private void Start()
@@ -81,6 +84,7 @@ public class DiceUI : MonoBehaviour
         healthSpawn = BalanceManager.instance.healthSpawn;
         engageZombies = BalanceManager.instance.engageZombies;
         weaponDamageChange = BalanceManager.instance.weaponDamageChange;
+        spawnGarlic = BalanceManager.instance.spawnGarlic;
         SetProbabilities();
         StartCoroutine(RollDicePeriodically());
     }
@@ -95,15 +99,22 @@ public class DiceUI : MonoBehaviour
             diceAnimator.SetBool("spinning", true);
 
             float endTime = Time.time + rollDuration;
+            int rand = 1;
 
             EventType ev = GetRandomEvent();
-            int rand = Random.Range(eventBoundariesMap[ev].Item1, eventBoundariesMap[ev].Item2);
             while (Time.time < endTime)
             {
                 ev = GetRandomEvent();
-                rand = Random.Range(eventBoundariesMap[ev].Item1, eventBoundariesMap[ev].Item2);
-                text.text = ev.ToString() + "   " + rand.ToString();
+                if(ev == EventType.SpawnBomb)
+                {
+                    text.text = ev.ToString();
+                }
+                else
+                {
+                    rand = Random.Range(eventBoundariesMap[ev].Item1, eventBoundariesMap[ev].Item2);
+                    text.text = ev.ToString() + "   " + rand.ToString();
 
+                }
                 float delay = .1f;
                 yield return new WaitForSecondsRealtime(delay);
             }

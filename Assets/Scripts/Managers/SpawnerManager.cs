@@ -89,6 +89,16 @@ public class SpawnerManager : MonoBehaviour
         return true;
     }
 
+    private bool SpawnBomb(Vector3 spawnPoint)
+    {
+        GameObject bombObject = objectPooler.SetActiveObjects(PoolTag.Bomb, 1).FirstOrDefault();
+        if (bombObject == null) return false;
+
+        bombObject.transform.position = spawnPoint;
+        bombObject.GetComponent<BombItem>().InitializeStart();
+        return true;
+    }
+
     private bool SpawnEnemy(Vector3 spawnPoint)
     {
         GameObject enemyObject = objectPooler.SetActiveObjects(PoolTag.Enemy, 1).FirstOrDefault();
@@ -223,6 +233,9 @@ public class SpawnerManager : MonoBehaviour
                 break;
             case 7:
                 weapon.SetDamage(weapon.GetDamage() + rand);
+                break;
+            case 8:
+                RandomSpawn(SpawnBomb);
                 break;
             default:
                 break;

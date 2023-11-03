@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -20,16 +21,18 @@ public class PlayerManager : MonoBehaviour
     private float hp;
     private float maxHp;
 
+    private bool hasBomb = false;
+
     [Header("Consumables")]
     public int revives = 0;
-    public int maxRevives = 2;
+    public int maxRevives;
     public int garlics = 0;
-    public int maxGarlics = 2;
+    public int maxGarlics;
 
     [Header("Others")]
-    public float hpAfterRevive = 50f;
-    public float garlicEffectDuration = 5f;
-    public float garlicEffectDurationAfterRevive = 2.5f;
+    public float hpAfterRevive;
+    public float garlicEffectDuration;
+    public float garlicEffectDurationAfterRevive;
     public bool immune = false;
 
     public int engagedZombies = 0;
@@ -57,6 +60,11 @@ public class PlayerManager : MonoBehaviour
     {
         hp = BalanceManager.instance.playerMaxHealth;
         maxHp = BalanceManager.instance.playerMaxHealth;
+        hpAfterRevive = BalanceManager.instance.healthAfterRevive;
+        garlicEffectDuration = BalanceManager.instance.garlicEffectDuration;
+        garlicEffectDurationAfterRevive = BalanceManager.instance.garlicEffectDurationAfterRevive;
+        maxRevives = BalanceManager.instance.maxRevives;
+        maxGarlics = BalanceManager.instance.maxGarlics;
     }
 
     private void Update()
@@ -65,6 +73,16 @@ public class PlayerManager : MonoBehaviour
         {
             UseGarlic();
         }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            UseBomb();
+        }
+    }
+
+    public bool HasBomb()
+    {
+        return hasBomb;
     }
 
     private void UpdateHealthUI()
@@ -113,6 +131,28 @@ public class PlayerManager : MonoBehaviour
         LoseEnemyEngagement(garlicEffectDuration);
     }
 
+    private void UseBomb()
+    {
+        if (!hasBomb) return;
+        hasBomb = false;
+        UiManager.instance.bombAvailableUI.BombAvailableUpdate(hasBomb);
+        float bombRange = BalanceManager.instance.bombRange;
+        Explosion explosion = playerObject.GetComponent<Explosion>();
+        explosion.Explode();
+        EnemyAI[] enemies = GameManager.instance.enemies.ToArray();
+        foreach (EnemyAI enemy in enemies)
+        {
+            if (Vector3.Distance(playerObject.transform.position, enemy.transform.position) <= bombRange)
+            {
+                enemy.RegainInstantAggresion();
+                enemy.Provoke();
+                EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+                enemyHealth.TakeDamage(BalanceManager.instance.bombDamage);
+            }
+        }
+        TakeDamage(BalanceManager.instance.bombDamage);
+    }
+
     public float GetHealth()
     {
         return hp;
@@ -128,6 +168,15 @@ public class PlayerManager : MonoBehaviour
         if (garlics == maxGarlics) return;
         garlics++;
         UiManager.instance.garlicsUI.GarlicsUpdate(garlics);
+    }
+
+    public void PickUpBomb()
+    {
+        Debug.Log("Entered PickUpBomb");
+        if(hasBomb) return;
+        hasBomb = true;
+        Debug.Log("hasBomb = " + hasBomb);
+        UiManager.instance.bombAvailableUI.BombAvailableUpdate(hasBomb);
     }
 
     public void PickUpRevive()

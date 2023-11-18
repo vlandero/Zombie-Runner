@@ -1,0 +1,23 @@
+{
+  "name": "haunted-roulette-serverless",
+  "version": "1.0.0",
+  "description": "Serverless aws-nodejs-typescript template",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@serverless/typescript": "^3.30.1",
+    "@types/aws-lambda": "^8.10.119",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^18.17.0",
+    "esbuild": "^0.17.19",
+    "serverless": "^3.34.0",
+    "serverless-esbuild": "^1.49.0",
+    "serverless-offline": "^12.0.4",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@aws-sdk/client-ssm": "^3.453.0",
+    "bcryptjs": "^2.4.3"
+  }
+}

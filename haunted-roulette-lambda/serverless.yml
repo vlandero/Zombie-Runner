@@ -1,0 +1,27 @@
+service: the-haunted-fortune-roulette-api
+
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+
+package:
+  exclude:
+    - node_modules/**
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: eu-central-1
+  stage: ${opt:stage}
+  timeout: 900
+  environment:
+    STAGE: ${self:provider.stage}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - ssm:GetParameter
+      Resource: '*'
+
+functions:
+  HauntedFortuneRouletteApi:
+    handler: ./src/index.handler

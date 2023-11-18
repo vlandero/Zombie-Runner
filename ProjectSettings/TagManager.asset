@@ -10,6 +10,9 @@ TagManager:
   - PlayerCapsule
   - Terrain
   - Wood
+  - username
+  - password
+  - error_text
   layers:
   - Default
   - TransparentFX

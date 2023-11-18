@@ -172,10 +172,8 @@ public class PlayerManager : MonoBehaviour
 
     public void PickUpBomb()
     {
-        Debug.Log("Entered PickUpBomb");
         if(hasBomb) return;
         hasBomb = true;
-        Debug.Log("hasBomb = " + hasBomb);
         UiManager.instance.bombAvailableUI.BombAvailableUpdate(hasBomb);
     }
 

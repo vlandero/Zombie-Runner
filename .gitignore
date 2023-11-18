@@ -76,3 +76,4 @@ crashlytics-build.properties
 UpgradeLog.htm
 
 Assets/3rdParty/
+Assets/Secrets.cs

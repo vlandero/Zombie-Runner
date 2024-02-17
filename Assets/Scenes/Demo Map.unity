@@ -2480,7 +2480,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2987125110844196554, guid: b62a94ed10285e2448d062503d404653, type: 3}
       propertyPath: chaseRangeFlat
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2987125110844196554, guid: b62a94ed10285e2448d062503d404653, type: 3}
       propertyPath: zombieSpawnLow
@@ -2488,7 +2488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2987125110844196554, guid: b62a94ed10285e2448d062503d404653, type: 3}
       propertyPath: playerMaxHealth
-      value: 150
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 2987125110844196554, guid: b62a94ed10285e2448d062503d404653, type: 3}
       propertyPath: scoreAmountHigh

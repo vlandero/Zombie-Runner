@@ -21,4 +21,14 @@ public class MainScreen : MonoBehaviour
         PlayerPrefs.DeleteAll();
         SceneManager.LoadScene(0);
     }
+
+    public void OnClickExit()
+    {
+        Application.Quit();
+    }
+
+    public void OnClickHowToPlay()
+    {
+        SceneManager.LoadScene(5);
+    }
 }

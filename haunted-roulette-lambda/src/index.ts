@@ -2,8 +2,8 @@ import { APIGatewayProxyEventV2, Context, Handler } from "aws-lambda";
 import { register } from "./apis/register";
 import { getSSMParameter } from "./utils/ssm";
 import { login } from "./apis/login";
-import UserDTO from "./models/UserDTO";
 import { getLeaderboard } from "./apis/leaderboard";
+import { updateHighScore } from "./apis/add-score";
 
 class ApiResponse {
   statusCode: number;
@@ -93,7 +93,23 @@ export const handler: Handler = async (
         statusCode: 200,
         body: { error: false, payload: JSON.stringify(leaderboard) },
       });
-    } else {
+    }
+    else if(route === '/update-highscore' && event.requestContext.http.method === "POST"){
+      const { username, score } = JSON.parse(event.body || "{}");
+      console.log(`username: ${username}, highscore: ${score}`);
+      const res = await updateHighScore(username, score);
+      return new ApiResponse({
+        statusCode: 200,
+        body: { error: false, payload: JSON.stringify(res) },
+      });
+    }
+    else if(route === '/get-version' && event.requestContext.http.method === "GET"){
+      return new ApiResponse({
+        statusCode: 200,
+        body: { error: false, payload: "0.1" },
+      });
+    }
+    else {
       return new ApiResponse({
         statusCode: 404,
         body: { error: true, payload: "Not found" },

@@ -50,6 +50,7 @@ public class TimeElapsedHandler : MonoBehaviour
 
     private void UpdateTimerText(float timeInSeconds)
     {
+        if (timerText == null) return;
         float minutes = Mathf.FloorToInt(timeInSeconds / 60);
         float seconds = timeInSeconds % 60;
         timerText.text = string.Format("{0:00}:{1:00.00}", minutes, seconds);

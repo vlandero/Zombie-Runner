@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NewPlayerMovement : MonoBehaviour
 {
@@ -14,6 +15,18 @@ public class NewPlayerMovement : MonoBehaviour
 
     private Vector3 velocity;
     private bool isGrounded;
+
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Time.timeScale = 1;
+        if(UiManager.instance.timeElapsedHandler != null)
+        {
+            UiManager.instance.timeElapsedHandler.ResetTimer();
+            UiManager.instance.timeElapsedHandler.StartTimer();
+        }
+    }
 
     void Update()
     {
@@ -32,5 +45,13 @@ public class NewPlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            SceneManager.LoadScene(1);
+        }
     }
 }

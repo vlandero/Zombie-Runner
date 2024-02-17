@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
-    [SerializeField] private int sceneNumber = 0;
+    [SerializeField] private int sceneNumber = 2;
     public void ReloadGame()
     {
         Time.timeScale = 1;
@@ -15,6 +15,12 @@ public class SceneLoader : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+        SceneManager.LoadScene(1);
+    }
+
+    public void OpenLeaderboard()
+    {
+        PlayerPrefs.SetInt("prevSceneIndex", 1);
+        SceneManager.LoadScene(3);
     }
 }

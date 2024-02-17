@@ -24,6 +24,8 @@ export const login = async ({
     throw new Error("Username or password is incorrect");
   }
 
+  console.log(`User logging in: ${JSON.stringify(user)}`);
+
   const passwordMatch = bcrypt.compareSync(password, user.password);
 
   if (!passwordMatch) {

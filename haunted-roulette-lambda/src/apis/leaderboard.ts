@@ -11,11 +11,11 @@ export const getAllEntries = async () => {
   if (entries === null) {
     return [];
   }
-  return Object.values(entries).map((entry) => new UserDTO(entry));
+  return Object.values(entries);
 };
 
 export const getLeaderboard = async () => {
-  const entries = await getAllEntries();
+  const entries = Object.values(await getAllEntries()).map((entry) => new UserDTO(entry));
   const leaderboard = entries.sort((a, b) => b.highscore - a.highscore);
   return leaderboard;
 };

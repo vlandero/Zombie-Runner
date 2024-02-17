@@ -34,7 +34,7 @@ public class Register : MonoBehaviour
 {
     private TMP_InputField usernameInput;
     private TMP_InputField passwordInput;
-    private string url;
+    public static string installedVersion = "0.1";
     [SerializeField] private GameObject usernameObject;
     [SerializeField] private GameObject passwordObject;
     [SerializeField] private GameObject errorObject;
@@ -50,6 +50,22 @@ public class Register : MonoBehaviour
 
     private void Start()
     {
+        RestClient.Get(Secrets.lambdaUrl + "/get-version").Then(response =>
+        {
+            HttpRes res = JsonUtility.FromJson<HttpRes>(response.Text);
+            if (res.error)
+            {
+                throw new Exception(res.payload);
+            }
+            Debug.Log("Version: " + res.payload);
+            if (res.payload != installedVersion)
+            {
+                SceneManager.LoadScene(6);
+            }
+        }).Catch(error =>
+        {
+            Debug.Log(error.Message);
+        });
         if(PlayerPrefs.HasKey("username"))
         {
             SceneManager.LoadScene(1);

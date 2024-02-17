@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using Proyecto26;
 using System;
-using Unity.VisualScripting;
 using TMPro;
 
 public class LeaderboardResponse
